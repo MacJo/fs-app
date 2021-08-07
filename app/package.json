@@ -1,0 +1,9 @@
+{
+  "name": "fs-app",
+  "version": "10.1.0",
+  "main": "main.js",
+  "private": true,
+  "dependencies": {
+    "@electron/remote": "1.2.0"
+  }
+}

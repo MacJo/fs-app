@@ -1,0 +1,49 @@
+<nav class="navbar bkg-{{cssStyle}}">
+
+    <div style="display:block; width: 99%; padding-top: 3px; padding-bottom: 3px; padding-left: 3px; padding-right: 3px;">
+      <input class="form-control input-searchbar input-bkg-{{cssStyle}}" style="width: 100%; text-align: center; background-image: url({{templatePath}}/search.png); background-position: 11px 7px ;background-size: 20px 20px; border:0;
+        background-repeat: no-repeat;" type="search" name="searchbar"
+        placeholder="{{ 'PAGES.SETTINGS.SEARCH' | translate }}" [(ngModel)]='searchbar' (keydown.enter)="_search()"
+        (keydown.f2)="changeCustomSearchState()">
+  
+      <div *ngIf="customSearchState" class="searchbar-custom-{{cssStyle}} labels-{{cssStyle}}"
+        style="margin-top:5px; border-top-style: solid; border-top-width: 1px; margin-left: 10px; margin-right: 10px; border-top-color:white; margin-top:5px; border-bottom-width: 1px; margin-left: 10px; margin-right: 10px; border-bottom-color:white; border-bottom-width: 1px; padding-bottom: 15px;">
+        <div style="width: 100%;" style="margin-top: 15px;  margin-bottom: 15px ;">
+          <label style="margin-left: 12%;" class="labels-{{cssStyle}}">{{ 'PAGES.SETTINGS.DATE-START' | translate
+            }}</label>
+          <input type="date" (change)="dateChange('start', $event)" class="input-date-{{cssStyle}}"
+            style="margin-left: 5px;">
+          <label style="margin-left: 5%;" class="labels-{{cssStyle}}">{{ 'PAGES.SETTINGS.DATE-END' | translate }}</label>
+          <input type="date" (change)="dateChange('end', $event)" class="input-date-{{cssStyle}}"
+            style="margin-left: 5px;">
+        </div>
+  
+        <div style="margin-top: 15px; margin-left: 15px; margin-right: 15px;">
+          <mat-chip-list #chipList aria-label="Department selection">
+            <mat-chip *ngFor="let department of departments" [selectable]="selectable" [removable]="removable" class="chip-color-{{cssStyle}}"
+              (removed)="removeDepartment(department)">
+              {{department.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input class="input-department-{{cssStyle}}" placeholder="{{ 'PAGES.SETTINGS.INPUT-DEPARTMENT' | translate }}"
+              [formControl]="departmentsCtrl"
+              [matAutocomplete]="auto"
+              [matChipInputFor]="chipList" 
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur" 
+              (matChipInputTokenEnd)="addDepartment($event)"
+              style="border: 0px; height:25px; background: transparent;">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addDepartment($event)">
+            <mat-option *ngFor="let department of filteredDepartments | async" [value]="department">
+              {{department}}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+        <section class="" style="margin-top:15px; margin-left: 15px;">
+          <mat-checkbox (change)="searchArchive($event)" class="">{{ 'PAGES.SETTINGS.ARCHIVE' | translate }}
+          </mat-checkbox>
+        </section>
+      </div>
+    </div>
+  </nav>

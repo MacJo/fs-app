@@ -1,0 +1,90 @@
+input:focus{
+    outline: none;
+  }
+  
+  button:focus{
+    outline: none;
+  }
+
+.input-searchbar{
+    padding-left: 5px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    height: 35px;
+    border-color: transparent;
+}
+
+.input-department-light{
+    color: black;
+}
+
+.input-department-dark{
+    color: white;
+}
+
+.chip-color-light{
+    background-color: #fde800
+    
+  }
+  
+.chip-color-dark{
+    background-color: #5affe7;
+}
+
+.input-date-light{
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    height: 35px;
+    padding-left: 7px;
+    padding-right: 7px;
+
+    border:none;
+    background-color:#e4e4e4;
+}
+
+.input-date-dark{
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    height: 35px;
+    padding-left: 7px;
+    padding-right: 7px;
+
+    border:none;
+    background-color:white;
+}
+
+.labels-light {
+    color: black;
+}
+
+.labels-dark {
+    color: #ffffff;
+}
+
+.bkg-light{
+    background-color: #f8f9fa;    
+}
+
+.bkg-dark{
+    background-color: #212b38;    
+}
+
+.input-bkg-light{
+    background-color: #e9e9e9;    
+}
+
+.input-bkg-dark{
+    background-color: #ffffff;    
+}
+
+.searchbar-custom-light{
+    height: 100%;
+    background-color:white;
+}
+
+.searchbar-custom-dark{
+    background-color: #37465b;
+}
