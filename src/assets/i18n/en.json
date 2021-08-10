@@ -7,6 +7,7 @@
     },
     "SETTINGS": {
       "TITLE": "Settings",
+      "THEME_LABEL": "Theme",
       "DROPHERE": "Drop licence here.",
       "TITLE_LICENCE": "Licence",
       "CLIENT": "Client",

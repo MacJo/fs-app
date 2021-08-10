@@ -1,14 +1,10 @@
 :host {
+  .hide-slider::-webkit-scrollbar {
+    display: none;
+  }
 
-    .hide-slider::-webkit-scrollbar{
-        display: none;
-      }
-      
-      .bkg-light{
-        background-color: #f8f9fa;    
-      }
-      
-      .bkg-dark{
-        background-color: #212b38;    
-      }
+  .main-component-container {
+    height: 100%;
+    overflow-y: scroll;
+  }
 }

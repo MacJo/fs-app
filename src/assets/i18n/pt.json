@@ -7,6 +7,7 @@
     },
     "SETTINGS": {
       "TITLE": "Definições",
+      "THEME_LABEL": "Tema",
       "SEARCH": "Pesquisar",
       "APPMODE": "Mode",
       "CLOUDID": "CloudID",

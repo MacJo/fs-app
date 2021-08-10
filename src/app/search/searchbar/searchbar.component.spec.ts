@@ -41,4 +41,8 @@ describe('SearchbarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render searchbar placeholder', (() => {
+    
+  }));
 });
