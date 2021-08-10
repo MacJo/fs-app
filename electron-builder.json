@@ -1,4 +1,6 @@
 {
+  "appId": "com.partiri.FS",
+  "productName": "FS",
   "asar": false,
   "directories": {
     "output": "release/"
@@ -21,12 +23,13 @@
   ],
   "win": {
     "icon": "dist/assets/icons",
-    "target": [
-      "portable"
-    ]
-  },
-  "portable": {
-    "splashImage": "dist/assets/icons/electron.bmp"
+    "legalTrademarks":"Copyright 2020-2021 Partiri.cloud - João Machacaz",
+    "target": [{
+      "target": "nsis",
+      "arch": [
+        "x64", "ia32"
+      ]
+    }]
   },
   "mac": {
     "icon": "dist/assets/icons",
@@ -39,5 +42,13 @@
     "target": [
       "AppImage"
     ]
+  },
+  "nsis": {
+    "oneClick":false,
+    "allowElevation": true,
+    "allowToChangeInstallationDirectory": true,
+    "perMachine":true,
+    "createDesktopShortcut":true,
+    "artifactName": "PartiriFS_${arch}.${ext}"
   }
 }

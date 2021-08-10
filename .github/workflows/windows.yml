@@ -46,7 +46,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Install Dependencies
       run: npm i
-    - name: Check lint
-      run: npm run lint
+    - name: Run Unit tests
+      run: npm test
     - name: Build the app
-      run: npm run electron:build
+      run: npm run electron:mac
