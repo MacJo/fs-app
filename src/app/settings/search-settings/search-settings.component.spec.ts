@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
+import { TranslateModule ,TranslateFakeLoader, TranslateLoader, TranslateService } from '@ngx-translate/core';
 
 import { SearchSettingsComponent } from './search-settings.component';
 
@@ -8,7 +11,15 @@ describe('SearchSettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SearchSettingsComponent ]
+      declarations: [ SearchSettingsComponent ],
+      imports:[TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateFakeLoader
+        }
+      }),
+      MatAutocompleteModule],
+      providers: [TranslateService]
     })
     .compileComponents();
   });

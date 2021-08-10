@@ -13,9 +13,6 @@ import { TranslateModule, TranslateLoader, TranslatePipe } from '@ngx-translate/
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import {BrowserModule} from '@angular/platform-browser';
 
-
-
-
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,11 +23,15 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { SettingsComponent } from '../settings/settings.component';
+import { SearchSettingsComponent } from '../settings/search-settings/search-settings.component';
+import { UserSettingsComponent } from '../settings/user-settings/user-settings.component';
 import { SearchbarComponent } from '../search/searchbar/searchbar.component';
 import { SearchResultComponent } from '../search/search-result/search-result.component'
-import { SettingsComponent } from '../settings/settings.component';
 
 
 // AoT requires an exported function for factories
@@ -39,17 +40,33 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [HomeComponent, SearchbarComponent, SearchResultComponent, SettingsComponent],
-  imports: [CommonModule, SharedModule, HomeRoutingModule, BrowserModule,
-    MatMenuModule, MatIconModule, MatButtonModule,
-    MatCheckboxModule,
-    MatDatepickerModule, MatNativeDateModule, 
-    MatChipsModule, MatSlideToggleModule, MatSnackBarModule, 
-    MatSnackBarModule, MatAutocompleteModule,MatMenuModule, 
-    MatIconModule, MatButtonModule, MatDatepickerModule, 
-    MatNativeDateModule, MatChipsModule, MatSlideToggleModule,
-    MatAutocompleteModule,
+  declarations: [
+    HomeComponent, 
+    SettingsComponent, 
+    SearchSettingsComponent, 
+    UserSettingsComponent,
+    SearchbarComponent,
+    SearchResultComponent
+  ],
+  imports: [
+    CommonModule, 
+    SharedModule, 
+    HomeRoutingModule,
+    BrowserModule,
     BrowserAnimationsModule,
+    
+    MatMenuModule, 
+    MatCheckboxModule, 
+    MatSnackBarModule, 
+    MatAutocompleteModule, 
+    MatIconModule, 
+    MatButtonModule, 
+    MatDatepickerModule, 
+    MatNativeDateModule, 
+    MatChipsModule, 
+    MatSlideToggleModule, 
+    
+    FormsModule, ReactiveFormsModule,
     TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,

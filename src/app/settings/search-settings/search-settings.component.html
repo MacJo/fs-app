@@ -1,1 +1,46 @@
-<p>search-settings works!</p>
+<div class="bkg-{{cssStyle}} hide-slider" style="height: 100%;">
+    <div class="searchbar-custom" style="padding-top: 25px;">
+      <div style="width: 100%;">
+        <label style="margin-left: 12%;" class="labels-{{cssStyle}}">{{ 'PAGES.SETTINGS.DATE-START' | translate }}</label>
+        <input type="date" value="{{searchTimeline.start}}" (change)="dateChange('start', $event)"
+          class="input-date-{{cssStyle}}" style="margin-left: 5px;">
+        <label style="margin-left: 10%;" class="labels-{{cssStyle}}">{{ 'PAGES.SETTINGS.DATE-END' | translate }}</label>
+        <input type="date" value="{{searchTimeline.end}}" (change)="dateChange('end', $event)" [readonly]="disableEndDate" class="input-date-{{cssStyle}}" style="margin-left: 5px;">
+        <section class="" style="margin-top:15px; margin-left: 15px;">
+          <mat-checkbox [checked]="nowState" (change)="dateendNow($event)" class="labels-{{cssStyle}}">{{ 'PAGES.SETTINGS.DATE-NOW' | translate}}</mat-checkbox>
+        </section>
+      </div>
+  
+      <div style="margin-top: 15px; margin-left: 15px; margin-right: 15px;">
+        <mat-chip-list #chipList aria-label="Department selection">
+          <mat-chip *ngFor="let department of searchDepartments" [selectable]="selectable" [removable]="removable" class="chip-color-{{cssStyle}}"
+            (removed)="removeDepartment(department)">
+            {{department.name}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+  
+          <input 
+            placeholder="{{ 'PAGES.SETTINGS.INPUT-DEPARTMENT' | translate }}" 
+            [formControl]="departmentsCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList" class=""
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" 
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="addDepartment($event)" style="border: 0px; height:25px; background: transparent;">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectDepartment($event)">
+          <mat-option *ngFor="let department of filteredDepartments | async" [value]="department">
+            {{department}}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+  
+      <section class="" style="margin-top:15px; margin-left: 15px;">
+        <mat-checkbox [checked]="searchTimeline.archive" (change)="searchArchive($event)" class="labels-{{cssStyle}}">{{ 'PAGES.SETTINGS.ARCHIVE' | translate}}</mat-checkbox>
+      </section>
+    </div>
+  
+    <div class="div_container3">
+      <button type="button" [routerLink]="['/settings']" class="btn_return">{{ 'PAGES.SETTINGS.RETURN' | translate}}</button>
+    </div>
+  </div>

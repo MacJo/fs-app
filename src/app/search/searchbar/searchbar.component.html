@@ -34,7 +34,7 @@
               (matChipInputTokenEnd)="addDepartment($event)"
               style="border: 0px; height:25px; background: transparent;">
           </mat-chip-list>
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addDepartment($event)">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectDepartment($event)">
             <mat-option *ngFor="let department of filteredDepartments | async" [value]="department">
               {{department}}
             </mat-option>

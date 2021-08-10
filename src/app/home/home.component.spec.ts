@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -11,7 +13,7 @@ describe('HomeComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent],
-      imports: [TranslateModule.forRoot(), RouterTestingModule]
+      imports: [TranslateModule.forRoot(), RouterTestingModule, MatSnackBarModule, BrowserAnimationsModule]
     }).compileComponents();
   }));
 

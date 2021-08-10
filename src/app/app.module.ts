@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
@@ -16,6 +16,16 @@ import { HomeModule } from './home/home.module';
 
 import { AppComponent } from './app.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+// Angular Materials
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
@@ -23,11 +33,18 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    FormsModule,
+    BrowserAnimationsModule,
+    FormsModule, ReactiveFormsModule,
     HttpClientModule,
     CoreModule,
     SharedModule,
     HomeModule,
+    MatAutocompleteModule,
+    MatSnackBarModule,
+    MatRadioModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatDialogModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {

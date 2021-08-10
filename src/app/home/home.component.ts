@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 // import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
-import { ElasticService } from '../core/services/elastic/elastic.service'
+// import { ElasticService } from '../core/services/elastic/elastic.service'
 
 @Component({
   selector: 'app-home',
@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit {
   themePath: string;
   authVal: boolean = false;
 
-  constructor(private router: Router, @Inject(LOCAL_STORAGE) private _storage: StorageService, private elastic: ElasticService,
+  constructor(private router: Router, @Inject(LOCAL_STORAGE) private _storage: StorageService, 
+  // private elastic: ElasticService,
   private _snackBar: MatSnackBar, private translate: TranslateService) { }
 
   ngOnInit(): void {
@@ -48,7 +49,7 @@ export class HomeComponent implements OnInit {
     let appmode = this._storage.get('appmode');
 
     if (!id || !apiKey || !appmode) {  
-      this.router.navigateByUrl('/settings');
+      // this.router.navigateByUrl('/settings');
       this._storage.set('first_login', true)
 
       //init necessary data for first time start
@@ -68,7 +69,7 @@ export class HomeComponent implements OnInit {
   }
 
   updateDepartments(): void{
-    this.elastic.getDepartments();
+    // this.elastic.getDepartments();
   }
 
 }

@@ -1,5 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {RouterTestingModule} from "@angular/router/testing";
+import { TranslateModule, TranslateLoader, TranslateFakeLoader, TranslateService } from '@ngx-translate/core';
 
+import { HomeComponent } from '../home/home.component'
 import { SettingsComponent } from './settings.component';
 
 describe('SettingsComponent', () => {
@@ -8,7 +12,21 @@ describe('SettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SettingsComponent ]
+      declarations: [ SettingsComponent ],
+      imports:[
+        MatSnackBarModule,
+        RouterTestingModule.withRoutes(
+          [{path: '', component: HomeComponent}, 
+          {path: 'settings', component: SettingsComponent}]
+        ),
+        TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useClass: TranslateFakeLoader
+        }
+      })
+    ],
+    providers: [TranslateService]
     })
     .compileComponents();
   });

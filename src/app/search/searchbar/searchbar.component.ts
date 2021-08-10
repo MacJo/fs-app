@@ -11,6 +11,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 // import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 export interface Department {
   name: string;
@@ -86,9 +87,8 @@ export class SearchbarComponent implements OnInit {
 
   // , private _hotkeysService: HotkeysService
 
-  constructor(private _snackBar: MatSnackBar, private translate: TranslateService, private router: Router, @Inject(LOCAL_STORAGE) private _storage: StorageService) {
-
-    }
+  constructor(private _snackBar: MatSnackBar, private translate: TranslateService,
+    private router: Router, @Inject(LOCAL_STORAGE) private _storage: StorageService){}
 
   ngOnInit(): void {
     let theme = this._storage.get('theme_ui')
@@ -207,6 +207,10 @@ export class SearchbarComponent implements OnInit {
 
     // Reset the input value
     if (input) input.value = '';
+  }
+
+  selectDepartment(event: MatAutocompleteSelectedEvent): void {
+
   }
 
   removeDepartment(department: Department): void {

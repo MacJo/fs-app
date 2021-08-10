@@ -43,8 +43,9 @@ export class SettingsComponent implements OnInit {
 
 
   constructor(@Inject(LOCAL_STORAGE) private _storage: StorageService,
-    private router: Router, private electron: ElectronService,
-    private _snackBar: MatSnackBar, private translate: TranslateService) { }
+  private router: Router, private electron: ElectronService, 
+  private _snackBar: MatSnackBar, private translate: TranslateService) 
+  { }
 
   ngOnInit(): void {
     this.setTheme();
