@@ -3,14 +3,15 @@
   <!-- MAIN-CONTAINER  -->
   <div class="input-holder">
     <!-- SEARCH INPUT -->
-    <input type="search" name="searchbar" class="form-control input-searchbar input-searchbar-dimensions input-bkg-{{cssStyle}}"
-      style="background-image: url({{templatePath}}/search.png)"
-      placeholder="{{ 'PAGES.SETTINGS.SEARCH' | translate }}" (keydown.enter)="_search()"
-      (keydown.f2)="changeCustomSearchState()" [(ngModel)]='searchbar'>
+    <input type="search" name="searchbar"
+      class="form-control input-searchbar input-searchbar-dimensions input-bkg-{{cssStyle}}"
+      style="background-image: url({{templatePath}}/search.png)" placeholder="{{ 'PAGES.SETTINGS.SEARCH' | translate }}"
+      (keydown.enter)="_search()" (keydown.f2)="changeCustomSearchState()" [(ngModel)]='searchbar'>
 
     <!-- ADVANCED SEARCH CONTAINER -->
     <div *ngIf="customSearchState"
       class="advanced-searchbar-container searchbar-custom-{{cssStyle}} labels-{{cssStyle}}">
+      
       <div class="advanced-searchbar-date">
         <label class="date-start-label labels-{{cssStyle}}">{{ 'PAGES.SETTINGS.DATE-START' | translate}}</label>
         <input type="date" (change)="dateChange('start', $event)" class="input-date input-date-{{cssStyle}}">
@@ -21,7 +22,8 @@
       <div class="advanced-searchbar-chips">
         <mat-chip-list #chipList aria-label="Department selection">
           <mat-chip *ngFor="let department of departments" class="chip-color-{{cssStyle}}" [selectable]="selectable"
-            [removable]="removable" (removed)="removeDepartment(department)">{{department.name}}
+            [removable]="removable" (removed)="removeDepartment(department)">
+            {{department.name}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
           <input class="input-department input-department-{{cssStyle}}"

@@ -34,33 +34,31 @@ export class ElasticService {
       this.id = this._storage.get('id');
       this.apiKey = this._storage.get('apiKey');
       this.appmode = this._storage.get('appmode');
-
   }
 
   async searchForProxy(searchbarvalue: string, customSearchTimeline = null, ) {
 
-    let storageTimeline = this._storage.get('searchTimeline');
+    let defaultTimeline = this._storage.get('searchTimeline');
     let searchDepartments = this._storage.get('searchDepartments');
 
     let timeline
 
     if(customSearchTimeline) {
       timeline = customSearchTimeline  
-      if (customSearchTimeline.departments.length == 0) timeline.departments = storageTimeline.departments
+      if (customSearchTimeline.departments.length == 0) timeline.departments = defaultTimeline.departments
     }
     else {
-      timeline = storageTimeline;
+      timeline = defaultTimeline;
       timeline.departments = searchDepartments;
     }
 
     try {
-      let body;
       let username;
 
       if (this.appmode === 'local') username = this.os.username();
       else username = this.id
       
-      body = {
+      let body = {
         'user': {
           'username': username,
           'password': this.apiKey,
