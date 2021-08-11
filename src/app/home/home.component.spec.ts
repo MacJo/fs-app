@@ -35,4 +35,8 @@ describe('HomeComponent', () => {
   //   );
   // }));
 
+  // SHOULD RENDER APP-SEARCHBAR
+
+  // SHOULD RENDER APP-SEARCHRESULTS
+  
 });

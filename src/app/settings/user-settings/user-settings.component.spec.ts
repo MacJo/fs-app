@@ -41,4 +41,14 @@ describe('UserSettingsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // TEST LICENCE CONTAINER
+
+  // TEST LICENCE SWITCH ANIMATION
+
+  // TEST THEME CONTAINER
+
+  // TEST THEME INPUT
+
+  // TEST LABELS
 });

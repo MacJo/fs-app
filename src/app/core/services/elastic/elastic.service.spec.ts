@@ -23,4 +23,18 @@ describe('ElasticService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  // TEST SEARCHFORPROXY()
+  // // TEST SEARCHBARVALUE
+  // // TEST CUSTOM TIMELINE
+  // // TEST APPMODE (CLOUD/LOCAL)
+  // // TEST BODY BEING SENT IN REQUEST
+  // // TEST ERROR ON REQUEST
+  // // TEST ERROR ON CATCH
+
+  // TEST GET DEPARTMENTS
+  // // TEST APPMODE (CLOUD/LOCAL)
+  // // TEST BODY BEING SENT IN REQUEST
+  // // TEST ERROR ON REQUEST
+  // // TEST ERROR ON CATCH
 });
