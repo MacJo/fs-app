@@ -19,8 +19,7 @@
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
   
-          <input 
-            placeholder="{{ 'PAGES.SETTINGS.INPUT-DEPARTMENT' | translate }}" 
+          <input placeholder="{{ 'PAGES.SETTINGS.INPUT-DEPARTMENT' | translate }}" 
             [formControl]="departmentsCtrl"
             [matAutocomplete]="auto"
             [matChipInputFor]="chipList" class=""

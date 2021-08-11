@@ -4,11 +4,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl } from '@angular/forms';
 import { ElasticService } from '../../core/services/elastic/elastic.service';
-// import { OsService } from '../core/services/os/os.service';
 import { Router } from '@angular/router';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
-// import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
@@ -79,12 +77,6 @@ export class SearchbarComponent implements OnInit {
   //chip seperator key
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  quoteReg = new RegExp(/"([^']*)"/);
-  filetypeReg = new RegExp(/:([^']*)/);
-  folderTypeReg = new RegExp(/\#([^']*)/);
-  minusTypeReg = new RegExp(/\-([^']*)/);
-  wildcardTypeReg = new RegExp(/([^']*)\*([^']*)/);
-
   constructor(private _snackBar: MatSnackBar, private translate: TranslateService, private elastic: ElasticService,
     private router: Router, @Inject(LOCAL_STORAGE) private _storage: StorageService){}
 
@@ -121,43 +113,12 @@ export class SearchbarComponent implements OnInit {
       this.searchTouched = false;
     }
     
-    //Validate for data presence
-    if(!this._storage.get('apiKey') || !this._storage.get('id')){
-      this.translate.get('PAGES.ALERT.SETTINGS_MISSING').subscribe(text => this._snackBar.open(text, 'X', {
-        duration: 2000,
-      }));
-      return;
-    }
     if(!this.searchbar){
       this.translate.get('PAGES.ALERT.SEARCH_EMPTY').subscribe(text => this._snackBar.open(text, 'X', {
         duration: 2000,
       }));
       return;
-    } 
-
-    // if(this.customSearchState) this.srcService.searchForProxy(this.searchbar, this.optionalTimeline);
-    // else this.srcService.searchForProxy(this.searchbar);
-  }
-
-  //DEPRECATED
-  processArray(array) : void {
-    for(let elem of array){
-      let resultOfFiletype      = this.filetypeReg.exec(elem);
-      let resultOfFoldertype    = this.folderTypeReg.exec(elem);
-      let resultOfWildcardtype  = this.wildcardTypeReg.exec(elem);
-      let resultOfMinustype     = this.minusTypeReg.exec(elem);
-      
-      if(resultOfFiletype) this.searchBody.file.push({value: resultOfFiletype[1]});
-      else if (resultOfFoldertype) this.searchBody.folder.push({value: resultOfFoldertype[1]});
-      else if (resultOfWildcardtype) this.searchBody.wildcard.push({value: resultOfWildcardtype[0]});
-      else if (resultOfMinustype) this.searchBody.minus.push({value: resultOfMinustype[1]});
-      else { if(elem !== "") this.searchBody.general.push({value: elem}); }
     }
-  }
-
-  //DEPRECATED
-  separateInArray(stringToProcess) : void {
-    return stringToProcess.split(' ');
   }
 
   changeCustomSearchState() : void {

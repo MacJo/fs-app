@@ -7,7 +7,6 @@
       <p><b>{{ 'PAGES.SETTINGS.CLIENT' | translate }}:</b> {{id}}</p>
       <p><b>{{ 'PAGES.SETTINGS.TYPE' | translate }}:</b> {{appmode}}</p>
       <p *ngIf="os_user"><b>{{ 'PAGES.SETTINGS.USER' | translate }}: </b> {{os_user}}</p>
-
     </div>
 
     <div *ngIf="!showInfo" class="prop-container2-{{cssStyle}}">
@@ -17,16 +16,14 @@
           (change)="getFileAuth($event.target)" accept=".auth">
         <p>{{ 'PAGES.SETTINGS.DROPHERE' | translate }}</p>
       </div>
-
     </div>
 
     <div class="theme-container-{{cssStyle}}">
-      <mat-slide-toggle class="settings_form color-{{cssStyle}}" 
+      <mat-slide-toggle class="settings_form color-{{cssStyle}}"
       [checked]="theme"
       (change)="_changeTheme()" [(ngModel)]="theme">
       {{ 'PAGES.SETTINGS.THEME_LABEL' | translate}}
       </mat-slide-toggle>
-
     </div>
 
     <div class="div_container3">
