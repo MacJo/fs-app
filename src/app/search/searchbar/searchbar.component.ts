@@ -3,7 +3,7 @@ import { StorageService, LOCAL_STORAGE } from 'ngx-webstorage-service';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl } from '@angular/forms';
-// import { ElasticService } from '../core/services/elastic/elastic.service';
+import { ElasticService } from '../../core/services/elastic/elastic.service';
 // import { OsService } from '../core/services/os/os.service';
 import { Router } from '@angular/router';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -85,9 +85,7 @@ export class SearchbarComponent implements OnInit {
   minusTypeReg = new RegExp(/\-([^']*)/);
   wildcardTypeReg = new RegExp(/([^']*)\*([^']*)/);
 
-  // , private _hotkeysService: HotkeysService
-
-  constructor(private _snackBar: MatSnackBar, private translate: TranslateService,
+  constructor(private _snackBar: MatSnackBar, private translate: TranslateService, private elastic: ElasticService,
     private router: Router, @Inject(LOCAL_STORAGE) private _storage: StorageService){}
 
   ngOnInit(): void {
@@ -112,11 +110,6 @@ export class SearchbarComponent implements OnInit {
       this.templatePath = defThemePath || 'assets/themes/darkmode_theme/';
     }
     else this.templatePath = defThemePath;
-
-    // this._hotkeysService.add(new Hotkey('f2', (event: KeyboardEvent): boolean => {
-    //   this.customSearchState = !this.customSearchState;
-    //   return false; // Prevent bubbling
-    // },null, 'customsearchstate'));
 
     this.initFilteredDep();
   }

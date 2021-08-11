@@ -36,4 +36,34 @@ describe('SearchResultComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  ///// UI TESTS /////
+  // TEST ANIMATION TO RESULTS
+
+  // TEST RESULT LIST
+
+  // SHOULD RENDER TR
+
+  // SHOULD RENDER TD LEFT
+  
+  // SHOULD RENDER TD RIGHT
+
+  // SHOULD RENDER ICON
+
+  // SHOULD RENDER LABELS
+
+  // SHOULD RENDER ITEM DATA
+
+  // SHOULD RENDER THEME
+
+  ///// LOGIC TESTS /////
+
+  // SHOULD OPEN LOCAL FILE
+
+  // SHOULD OPEN LOCAL FOLDER
+
+  // SHOULD SUBSCRIBE TO RESULTS 
+
+  // TEST TRANSLATION TEXTS
 });

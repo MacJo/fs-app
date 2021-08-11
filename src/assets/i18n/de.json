@@ -7,6 +7,7 @@
     },
     "SETTINGS": {
       "TITLE": "Einstellungen",
+      "THEME_LABEL": "Theme",
       "SEARCH": "Suchen",
       "APPMODE": "Mode",
       "CLOUDID": "CloudID",

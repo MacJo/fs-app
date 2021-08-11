@@ -40,4 +40,10 @@ describe('SettingsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // SHOULD RENDER THE 3 BUTTONS
+
+  // MUST CONTAIN A LABEL FOR EACH BUTTON
+
+  // 
 });

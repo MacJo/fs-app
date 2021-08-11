@@ -41,4 +41,22 @@ describe('SearchbarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // SHOULD RENDER PLACEHOLDER TEXT
+
+  // SHOULD RENDER ADVANCED SEARCH 
+
+  // SHOULD RENDER LABELS
+
+  // SHOULD RENDER INPUTS
+
+  // SHOULD HAVE RETURN BUTTON
+
+  // TEST INPUTS
+
+  // TEST SAME SEARCH
+  
+  // TEST DIFFERENT SEARCH
+
+  
 });

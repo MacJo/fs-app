@@ -1,80 +1,82 @@
+<!-- WAITING ANIMATION -->
 <ng-container *ngIf="!hits" class="bkg-{{cssStyle}}">
-    <div class="sk-folding-cube">
-      <div class="sk-cube1 sk-cube"></div>
-      <div class="sk-cube2 sk-cube"></div>
-      <div class="sk-cube4 sk-cube"></div>
-      <div class="sk-cube3 sk-cube"></div>
-    </div>
-  </ng-container>
-  
-  <ng-container *ngIf="hits">
-    <div class="bkg-{{cssStyle}} hide-slider">
-      <table class="table table-{{cssStyle}}" style="scroll-behavior: smooth; display: grid;">
-        <tbody>
-          <ng-container *ngFor="let hit of hits;">
-            <div class="tr-style-{{cssStyle}}">
-              <tr *ngIf="hit._type; else folderBlock" class="tr-style-{{cssStyle}}" scope="row" style="width: 100%;">
-                <td class="td-rectangle-{{cssStyle}} unselectable td_icon td_label"
-                  style="border-radius:  0 0 11px 0; cursor: pointer; height: 100%; min-width: 200px;"
-                  (dblclick)="openFileLocal(hit._source.path_root + hit._source.path_location + '/' + hit._source.label + '.' + hit._source.file_properties.extension)">
-                  
-                  <!-- <mat-menu #menu="matMenu" xPosition="before">
-                    <button mat-menu-item (click)="_sendPing(hit._source.label, hit._source.path_root + hit._source.path_location + '/' + hit._source.label + '.' + hit._source.file_properties.extension)"><b>Ping!</b></button>
-                  </mat-menu> -->
-                  <div style="height: 100%;" style="float: left; padding-left:3px; padding-top: 7%;">
-                    <div style="position: relative;text-align: center;color: black;">
-                      <img style="max-width: 35px; min-width: 35px; display: inline-block; margin-right: 7px;"
-                        src="{{templatePath}}default.png">
-                      <!-- <div style="position: absolute;top: 46%;left: 44%;transform: translate(-50%, -50%);" [matMenuTriggerFor]="menu"> -->
-                      <div style="position: absolute;top: 46%;left: 44%;transform: translate(-50%, -50%);">
-                        {{hit._source.file_properties.extension}}</div>
+  <div class="sk-folding-cube">
+    <div class="sk-cube1 sk-cube"></div>
+    <div class="sk-cube2 sk-cube"></div>
+    <div class="sk-cube4 sk-cube"></div>
+    <div class="sk-cube3 sk-cube"></div>
+  </div>
+</ng-container>
+
+<!-- RESULT -->
+<ng-container *ngIf="hits">
+  <div class="bkg-{{cssStyle}} hide-slider">
+    <table class="result-table table-{{cssStyle}}">
+      <tbody>
+        <!-- RESULTS CONTAINER -->
+        <ng-container *ngFor="let hit of hits;">
+          <!-- TR CONTAINER -->
+          <div class="tr-style-{{cssStyle}}">
+            <!-- TR -->
+            <tr *ngIf="hit._type; else folderBlock" class="tr-main tr-style-{{cssStyle}}" scope="row">
+              <!-- FILE ID CONTAINER -->
+              <td class="file-id-container td-rectangle-{{cssStyle}} unselectable td_icon td_label"
+                (dblclick)="openFileLocal(hit._source.path_root + hit._source.path_location + '/' + hit._source.label + '.' + hit._source.file_properties.extension)">
+                <!-- FILE EXTENSION -->
+                <div class="fileextension">
+                  <!-- file extension  -->
+                  <div class="fileextension-container">
+                    <!-- extension icon -->
+                    <img class="fileextension-icon" src="{{templatePath}}default.png">
+                    <div class="fileextension-label">{{hit._source.file_properties.extension}}</div>
+                  </div>
+                </div>
+                <!-- FILENAME -->
+                <div class="filename filename-slider">
+                  <div class="filename-label-{{cssStyle}}">{{ 'PAGES.SEARCHRESULT.FILENAME' | translate }}</div>
+                  <label class="filename-value-{{cssStyle}}" alt="hit._source.label">{{hit._source.label}}</label>
+                </div>
+              </td>
+
+              <!-- FILE METADA CONTAINER -->
+              <td class="unselectable metadata-container">
+                <!-- MOD DATE -->
+                <div class="mod-date">
+                  <div class="filename-label-{{cssStyle}} mb-1">{{ 'PAGES.SEARCHRESULT.MOD_DATE' | translate }}</div>
+                  <div class="fileproperties-value-{{cssStyle}}">{{hit._source.file_properties.mod | date :'d/M/yy'}}
+                  </div>
+                </div>
+                <!-- FILE DEPARTMENT -->
+                <div class="department-container">
+                  <div class="filename-label-{{cssStyle}} mb-1">{{ 'PAGES.SEARCHRESULT.DEPARTMENT' | translate }}</div>
+                  <div class="fileproperties-value-{{cssStyle}}">{{hit._source.department}}</div>
+                </div>
+                <!-- FILE METADATA CHIPS LIST -->
+                <div class="chip-slider chip-slider-{{cssStyle}}"
+                  [ngClass]="{'chip-slider-darwin':platform === 'darwin'}">
+                  <ng-container *ngFor="let meta of hit._source.metadata.slice().reverse()">
+                    <div class="chip-{{cssStyle}} chip_label"
+                      (auxclick)="openFileLocal(hit._source.path_root + hit._source.path_location + '/')">
+                      <span class="meta-label">{{meta}}</span>
                     </div>
-                  </div>
-                  <div class="filename-div _filename filename-slider" style="padding: 5px;">
-                    <div class="filename-label-{{cssStyle}}">{{ 'PAGES.SEARCHRESULT.FILENAME' | translate }}</div>
-                    <label class="filename-value-{{cssStyle}}" alt="hit._source.label">{{hit._source.label}}</label>
-                  </div>
-                </td>
-  
-                <td class="unselectable" style="border-radius:  0 0 11px 0; vertical-align: top; padding: 7px;">
-                  <div style="display: inline-block; vertical-align: middle;">
-                    <div class="filename-label-{{cssStyle}} mb-1">{{ 'PAGES.SEARCHRESULT.MOD_DATE' | translate }}</div>
-                    <div class="fileproperties-value-{{cssStyle}}">
-                      {{hit._source.file_properties.mod | date :'d/M/yy'}}
-                    </div>
-                  </div>
-                  <div style="display: inline-block; margin-left: 10px; margin-right: 20px; vertical-align: middle;">
-                    <div class="filename-label-{{cssStyle}} mb-1">{{ 'PAGES.SEARCHRESULT.DEPARTMENT' | translate }}</div>
-                    <div class="fileproperties-value-{{cssStyle}}">{{hit._source.department}}</div>
-                  </div>
-  
-                  <div class="chip-slider chip-slider-{{cssStyle}}"
-                    [ngClass]="{'chip-slider-darwin':platform === 'darwin'}"
-                    style="width:345px; vertical-align: middle; margin-top: 7px; padding-bottom: 5px;">
-                    <ng-container *ngFor="let meta of hit._source.metadata.slice().reverse()">
-                      <div class="chip-{{cssStyle}} chip_label" (auxclick)="openFileLocal(hit._source.path_root + hit._source.path_location + '/')">
-                        <span style="font-size: small; padding: 1px;">
-                          {{meta}}
-                        </span>
-                      </div>
-                    </ng-container>
-                  </div>
-                </td>
-              </tr>
-            </div>
-  
-            <div style="height: 7px;"></div>
-  
-            <ng-template #folderBlock>
-              <tr scope="row" class="tr_folder_{{cssStyle}}_label unselectable" (dblclick)="openFileLocal(hit.path)">
-                <td style="padding-left: 11px;" class="td_icon">
-                  <img style="max-width: 35px;" src="{{templatePath}}folder.png">
-                </td>
-                <td class="unselectable tr_folder_{{cssStyle}}_label" style="cursor: grab;">{{hit.path}}</td>
-              </tr>
-            </ng-template>
-          </ng-container>
-        </tbody>
-      </table>
-    </div>
-  </ng-container>
+                  </ng-container>
+                </div>
+              </td>
+            </tr>
+          </div>
+
+          <!-- ITEM SPACEMENT -->
+          <div style="height: 7px;"></div>
+
+          <!-- FOLDER CONTAINER -->
+          <ng-template #folderBlock>
+            <tr scope="row" class="tr_folder_{{cssStyle}}_label unselectable" (dblclick)="openFileLocal(hit.path)">
+              <td class="td-icon"><img style="max-width: 35px;" src="{{templatePath}}folder.png"></td>
+              <td class="unselectable tr_folder_{{cssStyle}}_label" style="cursor: grab;">{{hit.path}}</td>
+            </tr>
+          </ng-template>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</ng-container>

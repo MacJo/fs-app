@@ -1,51 +1,53 @@
-input:focus{
-    outline: none;
-  }
-  
-button:focus{
+input:focus {
     outline: none;
 }
-  
+
+button:focus {
+    outline: none;
+}
+
 .fileclass {
-	opacity: 0;
+    opacity: 0;
+}
+
+.main-container {
+    height: 100%;
 }
 
 .drophere-dark {
-    width:300px; 
-    height: 150px; 
-    border-style: dashed; 
-    border-radius: 15px; 
-    border-width: thin ;
-    border-color: #5affe7; 
-    text-align: center; 
-    margin:auto;  
+    width: 300px;
+    height: 150px;
+    border-style: dashed;
+    border-radius: 15px;
+    border-width: thin;
+    border-color: #5affe7;
+    text-align: center;
+    margin: auto;
     background-repeat: no-repeat;
     background-position: center;
 }
 
 .drophere-light {
-    width:300px; 
-    height: 150px; 
-    border-style: dashed; 
-    border-radius: 15px; 
-    border-width: thin ;
-    border-color: #fde800; 
-    text-align: center; 
-    margin:auto;  
+    width: 300px;
+    height: 150px;
+    border-style: dashed;
+    border-radius: 15px;
+    border-width: thin;
+    border-color: #fde800;
+    text-align: center;
+    margin: auto;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.btn-rect-light{
-    /* min-width: 300px; */
+.btn-rect-light {
     background-color: #fde800;
     padding: 10px;
     border-radius: 15px;
     outline: none;
 }
 
-.btn-rect-dark{
-    /* min-width: 300px; */
+.btn-rect-dark {
     background-color: #5affe7;
     padding: 10px;
     border-radius: 15px;
@@ -57,19 +59,16 @@ button:focus{
     display: block;
     margin-top: 10%;
 }
-input{
+input {
     font-size: 16px;
 }
-input[type="text"]
-{
+input[type="text"] {
     color: white;
     background: transparent;
     border: none;
 }
 
-
-input[type="password"]
-{
+input[type="password"] {
     color: white;
     background: transparent;
     border: none;
@@ -80,7 +79,7 @@ input[type="password"]
     height: 1px;
     margin-top: 1px;
     background-color: #3b4a5d;
-  }
+}
 
 .prop-container1-dark {
     width: max-content;
@@ -90,8 +89,8 @@ input[type="password"]
     padding: 5% 12% 7% 12%;
     box-shadow: 3px 3px 6px 0 rgba(26, 65, 70, 0.15);
     background-color: #212b38;
-  }
-  .prop-container1-light {
+}
+.prop-container1-light {
     width: max-content;
     height: max-content;
     margin: auto;
@@ -99,37 +98,48 @@ input[type="password"]
     padding: 5% 12% 7% 12%;
     box-shadow: 3px 3px 6px 0 rgba(26, 65, 70, 0.15);
     background-color: #a7a7a7;
-  }
+}
 
-  .prop-container2-light {
+.prop-container2-light {
     width: max-content;
     height: max-content;
     margin: auto;
     padding: 3% 10% 7% 10%;
     box-shadow: 3px 3px 6px 0 rgba(26, 65, 70, 0.15);
     background-color: #a7a7a7;
-  }
+}
 
-  .prop-container2-dark {
+.prop-container2-dark {
     width: max-content;
     height: max-content;
     margin: auto;
     padding: 3% 10% 7% 10%;
     box-shadow: 3px 3px 6px 0 rgba(26, 65, 70, 0.15);
     background-color: #212b38;
-  }
+}
 
-  .div_container3 {
+.return-container {
     margin-top: 5px;
     width: max-content;
     height: max-content;
     margin: auto;
-  }
+}
 
-  .btn_return {
+.main-btn-container {
+    padding-top: 30%;
+}
+
+.main-btn {
+    margin-top: 5px;
+    width: max-content;
+    height: max-content;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.btn-return {
     width: 82px;
     height: 42px;
-    /* margin: auto; */
     margin-top: 25px;
     border: none;
     border-radius: 23px;
@@ -139,30 +149,21 @@ input[type="password"]
 
     -webkit-appearance: none;
     -moz-appearance: none;
-  }
-  
-.bkg-light{
-    background-color: #f8f9fa;    
-  }
-  
-  .bkg-dark{
-    background-color: #37465b;
-    color: white;
-  }
-  
-a {
-    color:white;
 }
 
-.tdpad{
+a {
+    color: white;
+}
+
+.tdpad {
     padding-left: 25px;
     padding-right: 55px;
-} 
-.white {
-    color:white;
 }
-input{
-     width: 250px;
+.white {
+    color: white;
+}
+input {
+    width: 250px;
 }
 .tile--css_animations__demo2 div {
     border-radius: 50%;
@@ -214,7 +215,7 @@ input{
 }
 @keyframes slide {
     0% {
-        left: 75%
+        left: 75%;
     }
     50% {
         left: 25%;
@@ -225,7 +226,7 @@ input{
 }
 @-webkit-keyframes slide {
     0% {
-        left: 75%
+        left: 75%;
     }
     50% {
         left: 25%;
@@ -235,72 +236,65 @@ input{
     }
 }
 
-
-
-
-
-
-
-
- /* The switch - the box around the slider */
+/* The switch - the box around the slider */
 .switch {
-position: relative;
-display: inline-block;
-width: 60px;
-height: 34px;
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
 }
 
 /* Hide default HTML checkbox */
 .switch input {
-opacity: 0;
-width: 0;
-height: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
 /* The slider */
 .slider {
-position: absolute;
-cursor: pointer;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background-color: #ccc;
--webkit-transition: .4s;
-transition: .4s;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
 .slider:before {
-position: absolute;
-content: "";
-height: 26px;
-width: 26px;
-left: 4px;
-bottom: 4px;
-background-color: white;
--webkit-transition: .4s;
-transition: .4s;
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
 input:checked + .slider {
-background-color: rgb(23, 23, 24);
+    background-color: rgb(23, 23, 24);
 }
 
 input:focus + .slider {
-box-shadow: 0 0 1px rgb(23, 23, 24);
+    box-shadow: 0 0 1px rgb(23, 23, 24);
 }
 
 input:checked + .slider:before {
--webkit-transform: translateX(26px);
--ms-transform: translateX(26px);
-transform: translateX(26px);
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
 }
 
 /* Rounded sliders */
 .slider.round {
-border-radius: 34px;
+    border-radius: 34px;
 }
 
 .slider.round:before {
-border-radius: 50%;
-} 
+    border-radius: 50%;
+}

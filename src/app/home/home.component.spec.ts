@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('HomeComponent', () => {
@@ -33,4 +34,9 @@ describe('HomeComponent', () => {
   //     'PAGES.HOME.TITLE'
   //   );
   // }));
+
+  // SHOULD RENDER APP-SEARCHBAR
+
+  // SHOULD RENDER APP-SEARCHRESULTS
+  
 });

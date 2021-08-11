@@ -33,4 +33,16 @@ describe('SearchSettingsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // SHOULD RENDER 2 DATE INPUTS
+
+  // SHOULD RENDER ARCHIVE INPUT
+
+  // SHOULD RENDER CHIP LIST
+
+  // SHOULD RENDER RETURN BUTTON
+
+  // ADD CHIPS TO LIST AND VALIDATE CONTENT
+
+  // TEST INPUT ONCHANGE
 });

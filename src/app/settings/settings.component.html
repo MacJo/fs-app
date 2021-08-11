@@ -1,15 +1,25 @@
-<div class="bkg-{{cssStyle}}" style="height: 100%;">
-
-    <div class="bkg-{{cssStyle}}" style="padding-top: 30%;">
-      <div style="margin-bottom: 10px" class="div_container3 btn-rect-{{cssStyle}}" [routerLink]="[ '/search-settings']">
-        <h1><mat-icon>search</mat-icon> {{ 'PAGES.SETTINGS.SEARCH-SETTINGS' | translate }}</h1>
+<div class="main-container bkg-{{cssStyle}}">
+    <div class="main-btn-container bkg-{{cssStyle}}">
+      <div class="main-btn btn-rect-{{cssStyle}}"
+        [routerLink]="['/search-settings']">
+        <h1>
+          <mat-icon>search</mat-icon>
+          {{ 'PAGES.SETTINGS.SEARCH-SETTINGS' | translate }}
+        </h1>
       </div>
-      <div class="div_container3 btn-rect-{{cssStyle}}" [routerLink]="[ '/user-settings']">
-        <h1><mat-icon>supervised_user_circle</mat-icon> {{ 'PAGES.SETTINGS.USER-SETTINGS' | translate }}</h1>
+      <div class="main-btn btn-rect-{{cssStyle}}"
+      [routerLink]="['/user-settings']">
+        <h1>
+          <mat-icon>supervised_user_circle</mat-icon>
+          {{ 'PAGES.SETTINGS.USER-SETTINGS' | translate }}
+        </h1>
       </div>
   
-      <div class="div_container3">
-        <button type="button" [routerLink]="['/home']" class="btn_return">{{'PAGES.SETTINGS.RETURN' | translate}}</button>
+      <div class="return-container">
+        <button type="button" class="btn-return"
+        [routerLink]="['/home']" >
+        {{'PAGES.SETTINGS.RETURN' | translate}}
+      </button>
       </div>
   
     </div>
