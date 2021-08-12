@@ -65,6 +65,8 @@ export class SearchbarComponent implements OnInit {
     general: []
   };
 
+  theme: string;
+  defThemePath: string
   cssStyle: string;
   templatePath: string;
 
@@ -77,12 +79,12 @@ export class SearchbarComponent implements OnInit {
   //chip seperator key
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  constructor(private _snackBar: MatSnackBar, private translate: TranslateService, private elastic: ElasticService,
+  constructor(private _snackBar: MatSnackBar, private translate: TranslateService, private search: ElasticService,
     private router: Router, @Inject(LOCAL_STORAGE) private _storage: StorageService){}
 
   ngOnInit(): void {
-    let theme = this._storage.get('theme_ui')
-    let defThemePath = 'assets/themes/classic_theme/';
+    this.theme = this._storage.get('theme_ui')
+    this.defThemePath = 'assets/themes/classic_theme/';
 
     this.listdepartments = this._storage.get('available-departments') || ["N/A"];
 
@@ -93,50 +95,54 @@ export class SearchbarComponent implements OnInit {
       departments: [],
     };
 
-    if(theme === 'classic') {
+    if(this.theme === 'classic') {
       this.cssStyle = 'light';
-      this.templatePath = defThemePath || 'assets/themes/classic_theme/';
+      this.templatePath = this.defThemePath || 'assets/themes/classic_theme/';
     }
-    if(theme === 'darkmode') {
+    if(this.theme === 'darkmode') {
       this.cssStyle = 'dark';
-      this.templatePath = defThemePath || 'assets/themes/darkmode_theme/';
+      this.templatePath = this.defThemePath || 'assets/themes/darkmode_theme/';
     }
-    else this.templatePath = defThemePath;
+    else this.templatePath = this.defThemePath;
 
     this.initFilteredDep();
   }
 
-  _search() : void {
-    if(this.searchbar === this.oldsearchbar && !this.searchTouched) return;
+  _search() : boolean {
+    
+    if(!this.searchbar){
+      this.translate.get('PAGES.ALERT.SEARCH_EMPTY').subscribe(text => this._snackBar.open(text, 'X', { duration: 2000,}));
+      return false;
+    } 
+    
+    if(this.searchbar === this.oldsearchbar && !this.searchTouched) return false;
     else {
       this.oldsearchbar = this.searchbar;
       this.searchTouched = false;
-    }
-    
-    if(!this.searchbar){
-      this.translate.get('PAGES.ALERT.SEARCH_EMPTY').subscribe(text => this._snackBar.open(text, 'X', {
-        duration: 2000,
-      }));
-      return;
+      if(this.customSearchState) this.search.searchForProxy(this.searchbar, this.optionalTimeline);
+      else this.search.searchForProxy(this.searchbar);
+
+      return true;
     }
   }
 
-  changeCustomSearchState() : void {
-    this.customSearchState = !this.customSearchState
+  changeCustomSearchState() : boolean {
+    return this.customSearchState = !this.customSearchState
   }
 
-  searchArchive($event) : void{
+  changeArchive($event) : boolean{
       this._storage.set('searchArchive', $event.checked)
       this.searchTouched = true;
+      return $event.checked;
   }
 
-  activateOptionalTimeline($event) : void {
-    this.optionalTimelineState = $event.checked;
+  changeOptionalTimeline($event) : boolean {
+    return this.optionalTimelineState = $event.checked;
   }
   
-  dateChange(type, $event) : void {
+  changeDate(type, $event) : void {
     if(type === 'start') this.optionalTimeline.start = $event.srcElement.value
-    else this.optionalTimeline.end = $event.srcElement.value
+    if(type === 'end') this.optionalTimeline.end = $event.srcElement.value
     this.searchTouched = true;
   }
 

@@ -1,9 +1,9 @@
 <!-- NAVIGATION -->
-<nav class="navbar bkg-{{cssStyle}}">
+<nav id="nav-container" class="navbar bkg-{{cssStyle}}">
   <!-- MAIN-CONTAINER  -->
   <div class="input-holder">
     <!-- SEARCH INPUT -->
-    <input type="search" name="searchbar"
+    <input type="search" id="searchbar" name="searchbar"
       class="form-control input-searchbar input-searchbar-dimensions input-bkg-{{cssStyle}}"
       style="background-image: url({{templatePath}}/search.png)" placeholder="{{ 'PAGES.SETTINGS.SEARCH' | translate }}"
       (keydown.enter)="_search()" (keydown.f2)="changeCustomSearchState()" [(ngModel)]='searchbar'>
@@ -12,21 +12,21 @@
     <div *ngIf="customSearchState"
       class="advanced-searchbar-container searchbar-custom-{{cssStyle}} labels-{{cssStyle}}">
       
-      <div class="advanced-searchbar-date">
-        <label class="date-start-label labels-{{cssStyle}}">{{ 'PAGES.SETTINGS.DATE-START' | translate}}</label>
-        <input type="date" (change)="dateChange('start', $event)" class="input-date input-date-{{cssStyle}}">
-        <label class="date-end-label labels-{{cssStyle}}">{{ 'PAGES.SETTINGS.DATE-END' | translate }}</label>
-        <input type="date" (change)="dateChange('end', $event)" class="input-date input-date-{{cssStyle}}">
+      <div id="date-container" class="advanced-searchbar-date">
+        <label id="date-start-label" class="date-start-label labels-{{cssStyle}}">{{ 'PAGES.SETTINGS.DATE-START' | translate}}</label>
+        <input id="date-start" type="date" (change)="changeDate('start', $event)" class="input-date input-date-{{cssStyle}}">
+        <label id="date-end-label" class="date-end-label labels-{{cssStyle}}">{{ 'PAGES.SETTINGS.DATE-END' | translate }}</label>
+        <input id="date-end" type="date" (change)="changeDate('end', $event)" class="input-date input-date-{{cssStyle}}">
       </div>
 
-      <div class="advanced-searchbar-chips">
-        <mat-chip-list #chipList aria-label="Department selection">
+      <div id="chips-container" class="advanced-searchbar-chips">
+        <mat-chip-list id="chip-list" #chipList aria-label="Department selection">
           <mat-chip *ngFor="let department of departments" class="chip-color-{{cssStyle}}" [selectable]="selectable"
             [removable]="removable" (removed)="removeDepartment(department)">
             {{department.name}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
-          <input class="input-department input-department-{{cssStyle}}"
+          <input id="input-department" class="input-department input-department-{{cssStyle}}"
             placeholder="{{ 'PAGES.SETTINGS.INPUT-DEPARTMENT' | translate }}" [formControl]="departmentsCtrl"
             [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addDepartment($event)">
@@ -37,7 +37,7 @@
         </mat-autocomplete>
       </div>
       <section class="advanced-searchbar-archive">
-        <mat-checkbox (change)="searchArchive($event)">{{ 'PAGES.SETTINGS.ARCHIVE' | translate }}</mat-checkbox>
+        <mat-checkbox (change)="changeArchive($event)">{{ 'PAGES.SETTINGS.ARCHIVE' | translate }}</mat-checkbox>
       </section>
     </div>
   </div>

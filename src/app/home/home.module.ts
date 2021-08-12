@@ -54,7 +54,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     HomeRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    
     MatMenuModule, 
     MatCheckboxModule, 
     MatSnackBarModule, 
