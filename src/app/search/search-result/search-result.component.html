@@ -1,6 +1,6 @@
 <!-- WAITING ANIMATION -->
 <ng-container *ngIf="!hits" class="bkg-{{cssStyle}}">
-  <div class="sk-folding-cube">
+  <div class="sk-folding-cube" id="wait-animation">
     <div class="sk-cube1 sk-cube"></div>
     <div class="sk-cube2 sk-cube"></div>
     <div class="sk-cube4 sk-cube"></div>
@@ -10,7 +10,7 @@
 
 <!-- RESULT -->
 <ng-container *ngIf="hits">
-  <div class="bkg-{{cssStyle}} hide-slider">
+  <div id="result-container" class="bkg-{{cssStyle}} hide-slider">
     <table class="result-table table-{{cssStyle}}">
       <tbody>
         <!-- RESULTS CONTAINER -->
