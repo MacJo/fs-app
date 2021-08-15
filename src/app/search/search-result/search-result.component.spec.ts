@@ -37,9 +37,23 @@ describe('SearchResultComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
   ///// UI TESTS /////
   // TEST ANIMATION TO RESULTS
+  it('should create searchresult animation', () => {
+    component.hits = null;
+    fixture.detectChanges();
+
+    let container = document.getElementById("wait-animation");
+    expect(container).toBeTruthy();
+  });
+
+  it('should create searchresult container', () => {
+    component.hits = ['test', 'test']
+    fixture.detectChanges();
+
+    let container = document.getElementById("result-container");
+    expect(container).toBeTruthy();
+  });
 
   // TEST RESULT LIST
 

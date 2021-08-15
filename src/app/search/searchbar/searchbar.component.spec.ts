@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HomeComponent } from '../../home/home.component';
@@ -16,6 +18,8 @@ describe('SearchbarComponent', () => {
       declarations: [ SearchbarComponent ],
       imports: [
         MatSnackBarModule,
+        MatAutocompleteModule,
+        BrowserAnimationsModule,
         RouterTestingModule.withRoutes([
           {path: '', component: HomeComponent}, 
           {path: 'settings', component: SettingsComponent}
@@ -30,6 +34,7 @@ describe('SearchbarComponent', () => {
       providers: [TranslateService]
     })
     .compileComponents();
+
   });
 
   beforeEach(() => {
@@ -42,21 +47,170 @@ describe('SearchbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // SHOULD RENDER PLACEHOLDER TEXT
 
-  // SHOULD RENDER ADVANCED SEARCH 
+  // TEST UI //
 
-  // SHOULD RENDER LABELS
+  it('should create searchbar nav container', () => {
+    let container = document.getElementById("nav-container");
+    expect(container).toBeTruthy();
+  });
 
-  // SHOULD RENDER INPUTS
+  it('should have placeholder "Search"', () => {
+    let placeholder = (<HTMLInputElement>document.getElementById("searchbar")).placeholder;
+    expect(placeholder).toBe("PAGES.SETTINGS.SEARCH");
+  })
 
-  // SHOULD HAVE RETURN BUTTON
+  it('should have placeholder "Department"', () => {
+    component.customSearchState = true;
+    fixture.detectChanges();
 
-  // TEST INPUTS
+    let placeholder = (<HTMLInputElement>document.getElementById("input-department")).placeholder;
+    expect(placeholder).toBe("PAGES.SETTINGS.INPUT-DEPARTMENT");
+  })
 
-  // TEST SAME SEARCH
-  
-  // TEST DIFFERENT SEARCH
+  it('should create chips container ', () => {
+    component.customSearchState = true;
+    
+    fixture.detectChanges();
+    let chipCon = document.getElementById("chips-container");
+    
+    fixture.detectChanges();
 
-  
+    expect(chipCon).toBeTruthy();
+  });
+
+  it('should create date-start & date-end', () => {
+    component.customSearchState = true;
+    
+    fixture.detectChanges();
+    let dateStart = document.getElementById("date-start");
+    let dateStartlabel = document.getElementById("date-start-label");
+    let dateEnd = document.getElementById("date-end");
+    let dateEndlabel = document.getElementById("date-end-label");
+    
+    fixture.detectChanges();
+
+    expect(dateStart).toBeTruthy();
+    expect(dateEnd).toBeTruthy();
+
+    expect(dateStartlabel).toBeTruthy();
+    expect(dateEndlabel).toBeTruthy();
+  });
+
+  it('should create chips container ', () => {
+    component.customSearchState = true;
+    
+    fixture.detectChanges();
+    let chipCon = document.getElementById("chips-container");
+    
+    fixture.detectChanges();
+
+    expect(chipCon).toBeTruthy();
+  });
+
+  it('should create department chips ', () => {
+    component.customSearchState = true;
+    
+    fixture.detectChanges();
+    let chipList = document.getElementById("chip-list");
+    
+    fixture.detectChanges();
+
+    expect(chipList).toBeTruthy();
+  });
+
+  // TEST LOGIC //
+
+  it('search a word - search()', () => {
+    component.searchbar = "Hello";
+    fixture.detectChanges();
+    
+    let result = component._search()
+    expect(result).toBeTrue();
+  });
+
+  it('search twice the same word - search()', () => {
+    component.searchbar = "Hello";
+    fixture.detectChanges();
+    component._search()
+    fixture.detectChanges();
+    
+    let search2 = component._search()
+    expect(search2).toBeFalse();
+  });
+
+  it('search twice the same word and a new word - search()', () => {
+    component.searchbar = "Hello";
+    fixture.detectChanges();
+    
+    component._search()
+    fixture.detectChanges();
+    
+    component._search()
+    component.searchbar = "Hello World!";
+    fixture.detectChanges();
+    
+    let search3 = component._search();
+    expect(search3).toBeTrue();
+  });
+
+  it('should change search state - TRUE | FALSE', () => {
+    
+    component.customSearchState = true;
+    component.changeCustomSearchState();
+    fixture.detectChanges();
+
+    expect(component.customSearchState).toBe(false);
+
+    component.customSearchState = false;
+    component.changeCustomSearchState();
+    fixture.detectChanges();
+
+    expect(component.customSearchState).toBe(true);
+  });
+
+  it('should change archive search state', () => {
+    let $event = {
+      checked:true
+    };
+
+    let result = component.changeArchive($event)
+
+    expect(result).toBeTrue();
+
+    $event.checked = false;
+    let result2 = component.changeArchive($event)
+
+    expect(result2).toBeFalse();
+  })
+
+  it('should change timeline', () => {
+    let $event = {
+      checked:true
+    };
+
+    let result = component.changeOptionalTimeline($event)
+
+    expect(result).toBeTrue();
+
+    $event.checked = false;
+    let result2 = component.changeOptionalTimeline($event)
+
+    expect(result2).toBeFalse();
+  })
+
+  it('should change dates', () => {
+    let $event = {
+      srcElement: {
+        value: '12-08-1990'
+      }
+    };
+
+    component.changeDate('start', $event)
+    component.changeDate('end', $event)
+
+    expect(component.optionalTimeline.start).toBe($event.srcElement.value);
+    expect(component.optionalTimeline.end).toBe($event.srcElement.value);
+  })
+
 });

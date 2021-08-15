@@ -37,13 +37,13 @@ describe('SettingsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create component', () => {
     expect(component).toBeTruthy();
   });
 
-  // SHOULD RENDER THE 3 BUTTONS
-
-  // MUST CONTAIN A LABEL FOR EACH BUTTON
-
-  // 
+  it('should create 3 buttons', () => {
+    expect(document.getElementById('btn-search')).toBeTruthy();
+    expect(document.getElementById('btn-settings')).toBeTruthy();
+    expect(document.getElementById('btn-return')).toBeTruthy();
+  });
 });
