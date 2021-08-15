@@ -27,7 +27,7 @@
                   <!-- file extension  -->
                   <div class="fileextension-container">
                     <!-- extension icon -->
-                    <img class="fileextension-icon" src="{{templatePath}}default.png">
+                    <img class="fileextension-icon" src="{{themePath}}default.png">
                     <div class="fileextension-label">{{hit._source.file_properties.extension}}</div>
                   </div>
                 </div>
@@ -71,7 +71,7 @@
           <!-- FOLDER CONTAINER -->
           <ng-template #folderBlock>
             <tr scope="row" class="tr_folder_{{cssStyle}}_label unselectable" (dblclick)="openFileLocal(hit.path)">
-              <td class="td-icon"><img style="max-width: 35px;" src="{{templatePath}}folder.png"></td>
+              <td class="td-icon"><img style="max-width: 35px;" src="{{themePath}}folder.png"></td>
               <td class="unselectable tr_folder_{{cssStyle}}_label" style="cursor: grab;">{{hit.path}}</td>
             </tr>
           </ng-template>

@@ -68,7 +68,7 @@ export class SearchbarComponent implements OnInit {
   theme: string;
   defThemePath: string
   cssStyle: string;
-  templatePath: string;
+  themePath: string;
 
   //chips module
   visible = true;
@@ -97,13 +97,13 @@ export class SearchbarComponent implements OnInit {
 
     if(this.theme === 'classic') {
       this.cssStyle = 'light';
-      this.templatePath = this.defThemePath || 'assets/themes/classic_theme/';
+      this.themePath = this.defThemePath || 'assets/themes/classic_theme/';
     }
     if(this.theme === 'darkmode') {
       this.cssStyle = 'dark';
-      this.templatePath = this.defThemePath || 'assets/themes/darkmode_theme/';
+      this.themePath = this.defThemePath || 'assets/themes/darkmode_theme/';
     }
-    else this.templatePath = this.defThemePath;
+    else this.themePath = this.defThemePath;
 
     this.initFilteredDep();
   }
@@ -194,4 +194,7 @@ export class SearchbarComponent implements OnInit {
         map((dep: string | null) => dep ? this._filter(dep) : this.listdepartments.slice()));
   }
 
+  openSettings(){
+    this.router.navigateByUrl("/settings");
+  }
 }
