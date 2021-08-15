@@ -5,7 +5,7 @@
     <!-- SEARCH INPUT -->
     <input type="search" id="searchbar" name="searchbar"
       class="form-control input-searchbar input-searchbar-dimensions input-bkg-{{cssStyle}}"
-      style="background-image: url({{templatePath}}/search.png)" placeholder="{{ 'PAGES.SETTINGS.SEARCH' | translate }}"
+      style="background-image: url({{themePath}}/search.png)" placeholder="{{ 'PAGES.SETTINGS.SEARCH' | translate }}"
       (keydown.enter)="_search()" (keydown.f2)="changeCustomSearchState()" [(ngModel)]='searchbar'>
 
     <!-- ADVANCED SEARCH CONTAINER -->

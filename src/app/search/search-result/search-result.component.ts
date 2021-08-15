@@ -24,7 +24,7 @@ export class SearchResultComponent implements OnInit {
   totalRes;
   platform;
 
-  templatePath: string;
+  themePath: string;
   cssStyle: string;
 
   dirPath: string;
@@ -49,13 +49,13 @@ export class SearchResultComponent implements OnInit {
 
     if (theme === 'classic') {
       this.cssStyle = 'light';
-      this.templatePath = 'assets/themes/classic_theme/';
+      this.themePath = 'assets/themes/classic_theme/';
     }
     if (theme === 'darkmode') {
       this.cssStyle = 'dark';
-      this.templatePath = 'assets/themes/darkmode_theme/';
+      this.themePath = 'assets/themes/darkmode_theme/';
     }
-    else this.templatePath = defThemePath;
+    else this.themePath = defThemePath;
   }
 
   // isElectron(): boolean { // NOT NECESSARY

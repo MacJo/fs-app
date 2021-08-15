@@ -16,11 +16,8 @@ export class SettingsComponent implements OnInit {
   templateTheme: string;
   themePath: string;
   cssStyle: string;
-  templatePath: string;
-
-  constructor(@Inject(LOCAL_STORAGE) private _storage: StorageService,
-  private router: Router, private electron: ElectronService, 
-  private _snackBar: MatSnackBar, private translate: TranslateService) 
+  
+  constructor(@Inject(LOCAL_STORAGE) private _storage: StorageService) 
   { }
 
   ngOnInit(): void {
@@ -29,12 +26,12 @@ export class SettingsComponent implements OnInit {
 
     if (theme === 'classic') {
       this.cssStyle = 'light';
-      this.templatePath = 'assets/themes/classic_theme/';
+      this.themePath = 'assets/themes/classic_theme/';
     } else if (theme === 'darkmode') {
       this.cssStyle = 'dark';
-      this.templatePath = 'assets/themes/darkmode_theme/';
+      this.themePath = 'assets/themes/darkmode_theme/';
     } else {
-      this.templatePath = defThemePath;
+      this.themePath = defThemePath;
     }
   }
 

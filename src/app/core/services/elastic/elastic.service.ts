@@ -5,20 +5,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OsService } from '../os/os.service';
 import Axios from 'axios';
+import { RequestBody } from '../../../shared/typings/fs-server';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ElasticService {
-
-  esIndex: string;
-  query = { size: 100, query: {} };
-  queryBool = { bool: {} };
-  queryMulti = { multi_match: {} };
-  queryMust = { must: [] };
-  queryMustNot = { must_not: [] };
-  queryShould = { should: [] };
-  queryWild = { wildcard: {} };
 
   private apiKey: string;
   private cloudid: string;
@@ -63,11 +55,9 @@ export class ElasticService {
           'username': username,
           'password': this.apiKey,
         },
-        'timeline' : timeline,
+        'timeline' : timeline, // customSearchTimeline || defaultTimeline
         'searchbar': searchbarvalue
       };
-
-      // console.log(body);
 
       Axios.post(this.cloudid + 'search', body).then(response => {
         //THIS IS WRONG, PLEASE CORRECT. SHOULD NEVER RETURN EMPTY RESPONSE UNLESS UNKNOWN ERROR
@@ -100,8 +90,6 @@ export class ElasticService {
         }));
       });
     } catch (e) {
-      console.log(e);
-      console.log('GLOBAL CATCH REAL ERROR');
       this.translate.get('PAGES.ALERT.ES_CONN_FAIL').subscribe(text => this._snackBar.open(text, 'X', {
         duration: 2000,
       }));
@@ -109,13 +97,11 @@ export class ElasticService {
   }
 
   async getDepartments() {
-    console.log('getting departments')
-
+    let body: RequestBody;
+    
     if(!this.cloudid) return;
 
     try {
-      let body;
-
       let username: string;
 
       if (this.appmode === 'local') username = this.os.username();
@@ -132,15 +118,11 @@ export class ElasticService {
         // console.log(response.data);
         this._storage.set('available-departments', response.data);
       }).catch(error => {
-        console.log(error);
-        console.log('AXIOS CATCH REAL ERROR');
         this.translate.get('PAGES.ALERT.ES_CONN_FAIL').subscribe(text => this._snackBar.open(text, 'X', {
           duration: 2000,
         }));
       });
     } catch (e) {
-      console.log(e);
-      console.log('GLOBAL CATCH REAL ERROR');
       this.translate.get('PAGES.ALERT.ES_CONN_FAIL').subscribe(text => this._snackBar.open(text, 'X', {
         duration: 2000,
       }));

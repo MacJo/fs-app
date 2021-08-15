@@ -28,9 +28,8 @@ export class SearchSettingsComponent implements OnInit {
 
   theme: boolean;
   templateTheme: string;
-  themePath: string;
   cssStyle: string;
-  templatePath: string;
+  themePath: string;
 
   disableEndDate: boolean;
   nowState: boolean;
@@ -76,13 +75,13 @@ export class SearchSettingsComponent implements OnInit {
 
     if (theme === 'classic') {
       this.cssStyle = 'light';
-      this.templatePath = 'assets/themes/classic_theme/';
+      this.themePath = 'assets/themes/classic_theme/';
     }
     if (theme === 'darkmode') {
       this.cssStyle = 'dark';
-      this.templatePath = 'assets/themes/darkmode_theme/';
+      this.themePath = 'assets/themes/darkmode_theme/';
     }
-    else this.templatePath = defThemePath;
+    else this.themePath = defThemePath;
 
     this.initFilteredDep();
   }
