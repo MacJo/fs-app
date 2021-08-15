@@ -37,7 +37,7 @@ export class UserSettingsComponent implements OnInit  {
 
 
   constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private translate: TranslateService, 
-    private electron: ElectronService, private _snackBar: MatSnackBar) { }
+    private electron: ElectronService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.setTheme();
@@ -70,7 +70,7 @@ export class UserSettingsComponent implements OnInit  {
     if (this.electron.fs.existsSync(path)) {
       this.electron.fs.readFile(path, 'UTF8', (err, data) => {
         if (err) {
-          this.translate.get('PAGES.ALERT.AUTH_UPLOAD_ERROR').subscribe(text => this._snackBar.open(text, 'X', {
+          this.translate.get('PAGES.ALERT.AUTH_UPLOAD_ERROR').subscribe(text => this.snackBar.open(text, 'X', {
             duration: 2000,
           }));
         }
@@ -78,7 +78,7 @@ export class UserSettingsComponent implements OnInit  {
           data = JSON.parse(data)
 
           if (!data["a"] || !data["b"] || !data["c"] || !data["e"]) {
-            this.translate.get('PAGES.ALERT.AUTH_FILE_ERROR').subscribe(text => this._snackBar.open(text, 'X', {
+            this.translate.get('PAGES.ALERT.AUTH_FILE_ERROR').subscribe(text => this.snackBar.open(text, 'X', {
               duration: 2000,
             }));
           } else {
@@ -92,14 +92,14 @@ export class UserSettingsComponent implements OnInit  {
             this.cloudid = this.convertFromHex(data["c"])
             this.appmode =  this.convertFromHex(data["e"])
 
-            this.translate.get('PAGES.SETTINGS.SETTINGSSAVED').subscribe(text => this._snackBar.open(text, 'X', {
+            this.translate.get('PAGES.SETTINGS.SETTINGSSAVED').subscribe(text => this.snackBar.open(text, 'X', {
               duration: 1000,
             }));
           }
         }
       });
     } else {
-      this.translate.get('PAGES.ALERT.AUTH_FILE_NOT_FOUND').subscribe(text => this._snackBar.open(text, 'X', {
+      this.translate.get('PAGES.ALERT.AUTH_FILE_NOT_FOUND').subscribe(text => this.snackBar.open(text, 'X', {
         duration: 2000,
       }));
     }

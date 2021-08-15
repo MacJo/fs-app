@@ -43,15 +43,15 @@ describe('SearchResultComponent', () => {
     component.hits = null;
     fixture.detectChanges();
 
-    let container = document.getElementById("wait-animation");
+    const container = document.getElementById('wait-animation');
     expect(container).toBeTruthy();
   });
 
   it('should create searchresult container', () => {
-    component.hits = ['test', 'test']
+    component.hits = ['test', 'test'];
     fixture.detectChanges();
 
-    let container = document.getElementById("result-container");
+     const container = document.getElementById('result-container');
     expect(container).toBeTruthy();
   });
 

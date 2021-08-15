@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {RouterTestingModule} from "@angular/router/testing";
+import {RouterTestingModule} from '@angular/router/testing';
 import { TranslateModule, TranslateLoader, TranslateFakeLoader, TranslateService } from '@ngx-translate/core';
 
 import { HomeComponent } from '../home/home.component'

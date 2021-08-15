@@ -31,7 +31,7 @@ export interface Timeline {
   templateUrl: './searchbar.component.html',
   styleUrls: ['./searchbar.component.scss']
 })
-export class SearchbarComponent implements OnInit {
+export class SearchbarComponent implements OnInit{
 
   hints = [];
   searchbar: string;
@@ -43,9 +43,8 @@ export class SearchbarComponent implements OnInit {
   departmentsCtrl = new FormControl();
   filteredDepartments: Observable<string[]>;
 
-  searchbarEdited: boolean
-
-  customSearchState: boolean = false;
+  searchbarEdited: boolean;
+  customSearchState = false;
 
   optionalTimelineState: boolean;
   optionalTimeline: Timeline;
@@ -79,14 +78,14 @@ export class SearchbarComponent implements OnInit {
   //chip seperator key
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  constructor(private _snackBar: MatSnackBar, private translate: TranslateService, private search: ElasticService,
-    private router: Router, @Inject(LOCAL_STORAGE) private _storage: StorageService){}
+  constructor(private snackBar: MatSnackBar, private translate: TranslateService, private search: ElasticService,
+    private router: Router, @Inject(LOCAL_STORAGE) private storage: StorageService){}
 
   ngOnInit(): void {
-    this.theme = this._storage.get('theme_ui')
+    this.listdepartments = this.storage.get('available-departments') || ["N/A"];
+    this.theme = this.storage.get('theme_ui')
     this.defThemePath = 'assets/themes/classic_theme/';
 
-    this.listdepartments = this._storage.get('available-departments') || ["N/A"];
 
     this.optionalTimeline = {
       start:'',
@@ -111,7 +110,7 @@ export class SearchbarComponent implements OnInit {
   _search() : boolean {
     
     if(!this.searchbar){
-      this.translate.get('PAGES.ALERT.SEARCH_EMPTY').subscribe(text => this._snackBar.open(text, 'X', { duration: 2000,}));
+      this.translate.get('PAGES.ALERT.SEARCH_EMPTY').subscribe(text => this.snackBar.open(text, 'X', { duration: 2000,}));
       return false;
     } 
     
@@ -126,21 +125,21 @@ export class SearchbarComponent implements OnInit {
     }
   }
 
-  changeCustomSearchState() : boolean {
-    return this.customSearchState = !this.customSearchState
+  changeCustomSearchState(): boolean {
+    return this.customSearchState = !this.customSearchState;
   }
 
-  changeArchive($event) : boolean{
-      this._storage.set('searchArchive', $event.checked)
+  changeArchive($event): boolean{
+      this.storage.set('searchArchive', $event.checked)
       this.searchTouched = true;
       return $event.checked;
   }
 
-  changeOptionalTimeline($event) : boolean {
+  changeOptionalTimeline($event): boolean {
     return this.optionalTimelineState = $event.checked;
   }
   
-  changeDate(type, $event) : void {
+  changeDate(type, $event): void {
     if(type === 'start') this.optionalTimeline.start = $event.srcElement.value
     if(type === 'end') this.optionalTimeline.end = $event.srcElement.value
     this.searchTouched = true;
@@ -153,7 +152,7 @@ export class SearchbarComponent implements OnInit {
 
     this.searchTouched = true;
 
-    if(value == '') this._search();
+    if(value === '') this._search();
 
     const index = this.listdepartments.indexOf(event.value);
     if(index >= 0){
@@ -195,6 +194,6 @@ export class SearchbarComponent implements OnInit {
   }
 
   openSettings(){
-    this.router.navigateByUrl("/settings");
+    this.router.navigateByUrl('/settings');
   }
 }

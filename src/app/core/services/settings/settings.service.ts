@@ -7,7 +7,7 @@ import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 export class SettingsService {
 
   constructor(@Inject(LOCAL_STORAGE) private storage: StorageService) {
-    this.checkStorage()
+    this.checkStorage();
    }
 
   isLogin(): boolean{

@@ -28,7 +28,7 @@ describe('HomeComponent', () => {
   });
 
   it('should create home container', () => {
-    let maincontainer = document.getElementById("main-component-container");
+    const maincontainer = document.getElementById("main-component-container");
     expect(maincontainer).toBeTruthy();
   });
 });

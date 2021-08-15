@@ -51,13 +51,13 @@ describe('SearchbarComponent', () => {
   // TEST UI //
 
   it('should create searchbar nav container', () => {
-    let container = document.getElementById("nav-container");
+    const container = document.getElementById('nav-container');
     expect(container).toBeTruthy();
   });
 
   it('should have placeholder "Search"', () => {
-    let placeholder = (<HTMLInputElement>document.getElementById("searchbar")).placeholder;
-    expect(placeholder).toBe("PAGES.SETTINGS.SEARCH");
+    const placeholder = (<HTMLInputElement>document.getElementById('searchbar')).placeholder;
+    expect(placeholder).toBe('PAGES.SETTINGS.SEARCH');
   })
 
   it('should have placeholder "Department"', () => {
@@ -101,7 +101,7 @@ describe('SearchbarComponent', () => {
     component.customSearchState = true;
     
     fixture.detectChanges();
-    let chipCon = document.getElementById("chips-container");
+    const chipCon = document.getElementById("chips-container");
     
     fixture.detectChanges();
 
@@ -112,7 +112,7 @@ describe('SearchbarComponent', () => {
     component.customSearchState = true;
     
     fixture.detectChanges();
-    let chipList = document.getElementById("chip-list");
+    const chipList = document.getElementById("chip-list");
     
     fixture.detectChanges();
 
@@ -125,7 +125,7 @@ describe('SearchbarComponent', () => {
     component.searchbar = "Hello";
     fixture.detectChanges();
     
-    let result = component._search()
+    const result = component._search()
     expect(result).toBeTrue();
   });
 
@@ -135,7 +135,7 @@ describe('SearchbarComponent', () => {
     component._search()
     fixture.detectChanges();
     
-    let search2 = component._search()
+    const search2 = component._search()
     expect(search2).toBeFalse();
   });
 
@@ -150,7 +150,7 @@ describe('SearchbarComponent', () => {
     component.searchbar = "Hello World!";
     fixture.detectChanges();
     
-    let search3 = component._search();
+    const search3 = component._search();
     expect(search3).toBeTrue();
   });
 
@@ -174,12 +174,12 @@ describe('SearchbarComponent', () => {
       checked:true
     };
 
-    let result = component.changeArchive($event)
+    const result = component.changeArchive($event)
 
     expect(result).toBeTrue();
 
     $event.checked = false;
-    let result2 = component.changeArchive($event)
+    const result2 = component.changeArchive($event)
 
     expect(result2).toBeFalse();
   })
@@ -189,12 +189,12 @@ describe('SearchbarComponent', () => {
       checked:true
     };
 
-    let result = component.changeOptionalTimeline($event)
+    const result = component.changeOptionalTimeline($event)
 
     expect(result).toBeTrue();
 
     $event.checked = false;
-    let result2 = component.changeOptionalTimeline($event)
+    const result2 = component.changeOptionalTimeline($event)
 
     expect(result2).toBeFalse();
   })

@@ -47,18 +47,18 @@ export class SearchSettingsComponent implements OnInit {
   departmentsCtrl = new FormControl();
   filteredDepartments: Observable<string[]>;
 
-  constructor(@Inject(LOCAL_STORAGE) private _storage: StorageService, private translate: TranslateService) {
+  constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private translate: TranslateService) {
     
   }
 
   ngOnInit(): void {
 
-    this.searchTimeline = this._storage.get('searchTimeline');
-    this.listdepartments = this._storage.get('available-departments') || ["N/A"];
-    this.searchDepartments = this._storage.get('searchDepartments');
+    this.searchTimeline = this.storage.get('searchTimeline');
+    this.listdepartments = this.storage.get('available-departments') || ["N/A"];
+    this.searchDepartments = this.storage.get('searchDepartments');
 
     if (!this.searchTimeline) {
-      this.searchTimeline = { start: '', end: '', archive: false, departments: [] }
+      this.searchTimeline = { start: '', end: '', archive: false, departments: [] };
     }
 
     if (!this.searchDepartments) {
@@ -70,26 +70,14 @@ export class SearchSettingsComponent implements OnInit {
       this.disableEndDate = true;
     }
 
-    let theme = this._storage.get('theme_ui')
-    let defThemePath = 'assets/themes/classic_theme/';
-
-    if (theme === 'classic') {
-      this.cssStyle = 'light';
-      this.themePath = 'assets/themes/classic_theme/';
-    }
-    if (theme === 'darkmode') {
-      this.cssStyle = 'dark';
-      this.themePath = 'assets/themes/darkmode_theme/';
-    }
-    else this.themePath = defThemePath;
-
+    this.setTheme();
     this.initFilteredDep();
   }
 
   setTheme(): void {
-    let theme = this._storage.get('theme_ui')
-    let defThemePath = 'assets/themes/classic_theme/';
-    let defCss = 'light';
+    const theme = this.storage.get('theme_ui')
+    const defThemePath = 'assets/themes/classic_theme/';
+    const defCss = 'light';
 
     if (theme === 'classic') {
       this.cssStyle = 'light';
@@ -109,27 +97,27 @@ export class SearchSettingsComponent implements OnInit {
   }
 
   searchArchive($event) {
-    this.searchTimeline.archive = $event.checked
-    this._storage.set('searchTimeline', this.searchTimeline)
+    this.searchTimeline.archive = $event.checked;
+    this.storage.set('searchTimeline', this.searchTimeline);
   }
 
   dateChange(type, $event) {
     if (type === 'start') {
-      this.searchTimeline.start = $event.srcElement.value
+      this.searchTimeline.start = $event.srcElement.value;
     } else {
-      this.searchTimeline.end = $event.srcElement.value
+      this.searchTimeline.end = $event.srcElement.value;
     }
 
-    this._storage.set('searchTimeline', this.searchTimeline)
+    this.storage.set('searchTimeline', this.searchTimeline);
   }
 
   dateendNow($event) {
-    this.disableEndDate = $event.checked
+    this.disableEndDate = $event.checked;
 
     if ($event.checked) {
       this.searchTimeline.end = 'now';
       this.nowState = true;
-      this._storage.set('searchTimeline', this.searchTimeline)
+      this.storage.set('searchTimeline', this.searchTimeline);
     }
   }
 
@@ -141,7 +129,7 @@ export class SearchSettingsComponent implements OnInit {
     if (index >= 0) {
       if ((value || '').trim()) {
         this.searchDepartments.push({ name: value.trim() });
-        this._storage.set('searchDepartments', this.searchDepartments);
+        this.storage.set('searchDepartments', this.searchDepartments);
         this.searchTimeline.departments = this.searchDepartments;
       }
     }
@@ -159,7 +147,7 @@ export class SearchSettingsComponent implements OnInit {
 
     if (index >= 0) {
       this.searchDepartments.splice(index, 1);
-      this._storage.set('searchDepartments', this.searchDepartments)
+      this.storage.set('searchDepartments', this.searchDepartments);
       this.searchTimeline.departments = this.searchDepartments;
     }
   }

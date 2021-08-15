@@ -1,4 +1,4 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { ElectronService } from './core/services/electron/electron.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
@@ -9,13 +9,13 @@ import { APP_CONFIG } from '../environments/environment';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-    constructor(private electronService: ElectronService, private translate: TranslateService, private ngZone: NgZone,  private router: Router) {
+export class AppComponent implements OnInit {
+  constructor(private electronService: ElectronService, private translate: TranslateService, 
+    private ngZone: NgZone, private router: Router) {
     this.translate.setDefaultLang('en');
-    
+
     // Get and set app language
-    let locISO = navigator.language;
-    let sysLang = locISO.split('-');
+    const sysLang = navigator.language.split('-');
 
     if (sysLang[0] === 'en') translate.setDefaultLang('en');
     if (sysLang[0] === 'fr') translate.setDefaultLang('fr');
@@ -33,16 +33,11 @@ export class AppComponent {
     }
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.electronService.ipcRenderer.on('goto-settings', (event, arg) => {
       this.ngZone.run(() => {
-          this.openSettings();
+        this.router.navigate(['/settings']);
       });
-  });
-  }
-
-  openSettings(){
-    this.router.navigate(['/settings']);
-    console.log('Open Settings!')
+    });
   }
 }
