@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { ElectronService } from './core/services/electron/electron.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 import { APP_CONFIG } from '../environments/environment';
 
 @Component({
@@ -9,20 +10,39 @@ import { APP_CONFIG } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(
-    private electronService: ElectronService,
-    private translate: TranslateService
-  ) {
+    constructor(private electronService: ElectronService, private translate: TranslateService, private ngZone: NgZone,  private router: Router) {
     this.translate.setDefaultLang('en');
-    // console.log('APP_CONFIG', APP_CONFIG);
+    
+    // Get and set app language
+    let locISO = navigator.language;
+    let sysLang = locISO.split('-');
+
+    if (sysLang[0] === 'en') translate.setDefaultLang('en');
+    if (sysLang[0] === 'fr') translate.setDefaultLang('fr');
+    if (sysLang[0] === 'de') translate.setDefaultLang('de');
+    if (sysLang[0] === 'pt') translate.setDefaultLang('pt');
+    else translate.setDefaultLang('en');
 
     if (electronService.isElectron) {
-      // console.log(process.env);
-      // console.log('Run in electron');
-      // console.log('Electron ipcRenderer', this.electronService.ipcRenderer);
-      // console.log('NodeJS childProcess', this.electronService.childProcess);
+      console.log(process.env);
+      console.log('Run in electron');
+      console.log('Electron ipcRenderer', this.electronService.ipcRenderer);
+      console.log('NodeJS childProcess', this.electronService.childProcess);
     } else {
-      // console.log('Run in browser');
+      console.log('Run in browser');
     }
+  }
+
+  ngOnInit(){
+    this.electronService.ipcRenderer.on('goto-settings', (event, arg) => {
+      this.ngZone.run(() => {
+          this.openSettings();
+      });
+  });
+  }
+
+  openSettings(){
+    this.router.navigate(['/settings']);
+    console.log('Open Settings!')
   }
 }
