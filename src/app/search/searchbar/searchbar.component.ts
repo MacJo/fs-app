@@ -10,6 +10,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { SearchService } from '../../core/services/search/search.service';
 
 export interface Department {
   name: string;
@@ -78,14 +79,13 @@ export class SearchbarComponent implements OnInit{
   //chip seperator key
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  constructor(private snackBar: MatSnackBar, private translate: TranslateService, private search: ElasticService,
+  constructor(private snackBar: MatSnackBar, private translate: TranslateService, private search: SearchService,
     private router: Router, @Inject(LOCAL_STORAGE) private storage: StorageService){}
 
   ngOnInit(): void {
     this.listdepartments = this.storage.get('available-departments') || ["N/A"];
-    this.theme = this.storage.get('theme_ui')
-    this.defThemePath = 'assets/themes/classic_theme/';
-
+    this.theme = this.storage.get('theme')
+    this.defThemePath = 'assets/themes/classic/';
 
     this.optionalTimeline = {
       start:'',
@@ -96,14 +96,13 @@ export class SearchbarComponent implements OnInit{
 
     if(this.theme === 'classic') {
       this.cssStyle = 'light';
-      this.themePath = this.defThemePath || 'assets/themes/classic_theme/';
+      this.themePath = this.defThemePath || 'assets/themes/classic/';
     }
     if(this.theme === 'darkmode') {
       this.cssStyle = 'dark';
-      this.themePath = this.defThemePath || 'assets/themes/darkmode_theme/';
+      this.themePath = this.defThemePath || 'assets/themes/darkmode/';
     }
-    else this.themePath = this.defThemePath;
-
+    
     this.initFilteredDep();
   }
 

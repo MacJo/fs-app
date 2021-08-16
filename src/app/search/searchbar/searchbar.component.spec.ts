@@ -6,6 +6,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HomeComponent } from '../../home/home.component';
 import { SettingsComponent } from '../../settings/settings.component';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {HttpClientModule} from '@angular/common/http';
 
 import { SearchbarComponent } from './searchbar.component';
 
@@ -17,6 +19,7 @@ describe('SearchbarComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ SearchbarComponent ],
       imports: [
+        HttpClientTestingModule,
         MatSnackBarModule,
         MatAutocompleteModule,
         BrowserAnimationsModule,

@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject, ViewChild } from '@angular/core';
 import { StorageService, LOCAL_STORAGE } from 'ngx-webstorage-service';
-import { ElasticService } from '../../core/services/elastic/elastic.service';
 import { Subscription } from 'rxjs';
 import { ElectronService } from '../../core/services/electron/electron.service';
 
@@ -9,6 +8,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 
 import { MatMenuTrigger } from '@angular/material/menu';
 import { TranslateService } from '@ngx-translate/core';
+import { SearchService } from '../../core/services/search/search.service';
 
 @Component({
   selector: 'app-search-result',
@@ -31,30 +31,28 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   themePath: string;
   cssStyle: string;
 
-  dirPath: string;
-
   nuser: any;
 
-  constructor(private srcService: ElasticService, @Inject(LOCAL_STORAGE) private storage: StorageService, 
+  constructor(private search: SearchService, @Inject(LOCAL_STORAGE) private storage: StorageService, 
   private snackBar: MatSnackBar, private translate: TranslateService, private dialog: MatDialog,
   private electron: ElectronService) { }
 
   ngOnInit(): void {
-    this.hitsSubscription = this.srcService.searchResponse.subscribe((selectedresults) => {
+    this.hitsSubscription = this.search.searchResponse.subscribe((selectedresults) => {
       this.hits = selectedresults.hits;
       this.totalRes = selectedresults.total;
     });
 
-    const theme = this.storage.get('theme_ui');
-    const defThemePath = 'assets/themes/classic_theme/';
+    const theme = this.storage.get('theme');
+    const defThemePath = 'assets/themes/classic/';
 
     if (theme === 'classic') {
       this.cssStyle = 'light';
-      this.themePath = 'assets/themes/classic_theme/';
+      this.themePath = 'assets/themes/classic/';
     }
     if (theme === 'darkmode') {
       this.cssStyle = 'dark';
-      this.themePath = 'assets/themes/darkmode_theme/';
+      this.themePath = 'assets/themes/darkmode/';
     }
     else this.themePath = defThemePath;
   }
