@@ -5,11 +5,13 @@ import { HomeComponent } from './home.component';
 import { SettingsComponent } from '../settings/settings.component';
 import { UserSettingsComponent } from '../settings/user-settings/user-settings.component';
 import { SearchSettingsComponent } from '../settings/search-settings/search-settings.component';
+import { LoginGuard } from '../core/guards/login/login.guard';
 
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [LoginGuard]
   },
   {
     path: 'settings',
@@ -21,7 +23,8 @@ const routes: Routes = [
   },
   {
     path: 'search-settings',
-    component: SearchSettingsComponent
+    component: SearchSettingsComponent,
+    canActivate: [LoginGuard]
   }
 ];
 

@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {HttpClientModule} from '@angular/common/http';
 
 import { SearchResultComponent } from './search-result.component';
 
@@ -13,6 +15,7 @@ describe('SearchResultComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ SearchResultComponent ],
       imports: [
+        HttpClientTestingModule,
         MatSnackBarModule,
         MatDialogModule,
         TranslateModule.forRoot({

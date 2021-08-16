@@ -75,18 +75,18 @@ export class SearchSettingsComponent implements OnInit {
   }
 
   setTheme(): void {
-    const theme = this.storage.get('theme_ui')
-    const defThemePath = 'assets/themes/classic_theme/';
+    const theme = this.storage.get('theme')
+    const defThemePath = 'assets/themes/classic/';
     const defCss = 'light';
 
     if (theme === 'classic') {
       this.cssStyle = 'light';
-      this.themePath = 'assets/themes/classic_theme/';
+      this.themePath = 'assets/themes/classic/';
       this.theme = false;
     }
     else if (theme === 'darkmode') {
       this.cssStyle = 'dark';
-      this.themePath = 'assets/themes/darkmode_theme/';
+      this.themePath = 'assets/themes/darkmode/';
       this.theme = true;
     }
     else {
