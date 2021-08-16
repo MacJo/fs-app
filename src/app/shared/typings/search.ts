@@ -4,3 +4,8 @@ export interface Timeline {
     archive: boolean,
     departments: [string?]
 }
+
+export interface serverSettings {
+    url: string,
+    options?: {}
+}

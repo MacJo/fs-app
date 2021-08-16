@@ -1,8 +1,3 @@
-export interface UserObj {
-    user: string,
-    apiKey: string,
-}
-
 export interface Drive {
     id:string
     name: string,
@@ -22,4 +17,16 @@ export interface Module {
 
 export interface ModuleOptions {
     
+}
+
+export interface appSettings {
+    appmode: string, 
+}
+
+export interface Licence {
+    id: string,
+    username: string,
+    apiKey: string,
+    url: string
+    appmode:string
 }
