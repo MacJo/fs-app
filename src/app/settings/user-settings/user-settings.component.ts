@@ -3,9 +3,10 @@ import { StorageService, LOCAL_STORAGE } from 'ngx-webstorage-service';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ElectronService } from '../../core/services';
-import { UserObj } from '../../shared/typings/settings'
 import { TranslateService } from '@ngx-translate/core';
-
+import { Licence } from '../../shared/typings/settings';
+import { OsService } from '../../core/services/os/os.service';
+import { SettingsService } from '../../core/services/settings/settings.service';
 
 @Component({
   selector: 'app-user-settings',
@@ -14,12 +15,14 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class UserSettingsComponent implements OnInit  {
 
-  user: UserObj;
+  username: string;
+  appmode: string;
+
+  lcc: Licence;
 
   apiKey: string;
   id: string;
   cloudid: string;
-  appmode: string;
   
   es_url: string;
   es_index: string;
@@ -37,30 +40,36 @@ export class UserSettingsComponent implements OnInit  {
 
 
   constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private translate: TranslateService, 
-    private electron: ElectronService, private snackBar: MatSnackBar) { }
+    private electron: ElectronService, private snackBar: MatSnackBar, private os: OsService, private settings: SettingsService) {
+    }
 
   ngOnInit(): void {
-    this.setTheme();
+    const lcc: Licence = this.storage.get('lcc')
+    
+    this.username = lcc.username;
+    this.appmode = lcc.appmode;
 
-    this.showInfo = false;
+    this.setTheme();
+    
+    this.showInfo = (this.settings.isLogin()) ? true : false; 
   }
 
   setTheme(): void {
-    let theme = this.storage.get('theme_ui')
-    
+    let theme = this.storage.get('theme')
+
     if (theme === 'classic') {
       this.cssStyle = 'light';
-      this.themePath = 'assets/themes/classic_theme/';
+      this.themePath = 'assets/themes/classic/';
       this.themeInputValue = false;
     }
     else if (theme === 'darkmode') {
       this.cssStyle = 'dark';
-      this.themePath = 'assets/themes/darkmode_theme/';
+      this.themePath = 'assets/themes/darkmode/';
       this.themeInputValue = true;
     }
   }
 
-  getFileAuth(file): void {
+  getFileAuth(file: any): void {
     
     let nfile : File = file[0];
     let path = nfile.path;
@@ -82,16 +91,17 @@ export class UserSettingsComponent implements OnInit  {
               duration: 2000,
             }));
           } else {
-            this._change('id', this.convertFromHex(data["a"]));
-            this._change('apiKey', this.convertFromHex(data["b"]));
-            this._change('cloudid', this.convertFromHex(data["c"]));
-            this._change('appmode', this.convertFromHex(data["e"]));
 
-            this.id = this.convertFromHex(data["a"]);
-            this.apiKey = this.convertFromHex(data["b"])
-            this.cloudid = this.convertFromHex(data["c"])
-            this.appmode =  this.convertFromHex(data["e"])
+            this.lcc = {
+              id: this.id = this.convertFromHex(data["a"]),
+              username: (this.convertFromHex(data["e"]) === 'local') ? this.os.username() : this.convertFromHex(data["a"]),
+              apiKey: this.convertFromHex(data["b"]),
+              url: this.convertFromHex(data["c"]),
+              appmode: this.convertFromHex(data["e"])
+            }
 
+            this.storage.set('lcc', this.lcc)
+            
             this.translate.get('PAGES.SETTINGS.SETTINGSSAVED').subscribe(text => this.snackBar.open(text, 'X', {
               duration: 1000,
             }));
@@ -110,13 +120,8 @@ export class UserSettingsComponent implements OnInit  {
   }
 
   _changeTheme(): void {
-    (this.themeInputValue) ? this.storage.set('theme_ui', 'darkmode') : this.storage.set('theme_ui', 'classic');
+    (this.themeInputValue) ? this.storage.set('theme', 'darkmode') : this.storage.set('theme', 'classic');
     this.setTheme();
-  }
-
-  // not necessary anymore
-  _changeShowInfo(){
-    this.showInfo = !this.showInfo;
   }
 
   convertFromHex(hex) {

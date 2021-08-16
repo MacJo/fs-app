@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { ElectronService } from './core/services/electron/electron.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { SettingsService } from './core/services/settings/settings.service'
 import { APP_CONFIG } from '../environments/environment';
 
 @Component({
@@ -10,7 +11,7 @@ import { APP_CONFIG } from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private electronService: ElectronService, private translate: TranslateService, 
+  constructor(private electronService: ElectronService, private translate: TranslateService, private settings: SettingsService,
     private ngZone: NgZone, private router: Router) {
     this.translate.setDefaultLang('en');
 
