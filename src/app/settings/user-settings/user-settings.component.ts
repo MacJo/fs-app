@@ -8,6 +8,10 @@ import { Licence } from '../../shared/typings/settings';
 import { OsService } from '../../core/services/os/os.service';
 import { SettingsService } from '../../core/services/settings/settings.service';
 
+interface HTMLInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
+
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
@@ -69,15 +73,13 @@ export class UserSettingsComponent implements OnInit  {
     }
   }
 
-  getFileAuth(file: any): void {
+  getFileAuth($event): void {
     
-    let nfile : File = file[0];
-    let path = nfile.path;
+    const files :FileList = $event.target.files;
+    const filepath = files[0].path.toString();
     
-    path = path.toString();
-
-    if (this.electron.fs.existsSync(path)) {
-      this.electron.fs.readFile(path, 'UTF8', (err, data) => {
+    if (this.electron.fs.existsSync(filepath)) {
+      this.electron.fs.readFile(filepath, 'UTF8', (err, data) => {
         if (err) {
           this.translate.get('PAGES.ALERT.AUTH_UPLOAD_ERROR').subscribe(text => this.snackBar.open(text, 'X', {
             duration: 2000,
