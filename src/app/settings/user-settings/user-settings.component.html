@@ -12,7 +12,7 @@
       <mat-icon style="cursor: pointer; padding-bottom: 10px;" (click)="this.showInfo = !this.showInfo">info</mat-icon>
       <div class="drophere-{{cssStyle}}" style="background-image: url('{{themePath}}here.png');">
         <input class="btn_upload fileclass" style="width:300px; height: 150px;" type="file"
-          (change)="getFileAuth($event.target.files)" accept=".auth">
+          (change)="getFileAuth($event)" accept=".auth">
         <p>{{ 'PAGES.SETTINGS.DROPHERE' | translate }}</p>
       </div>
     </div>
