@@ -48,7 +48,6 @@ export class SearchService {
         searchbar: searchbarvalue
       };
 
-
       this.http.post(this.srv.url + 'search', body).subscribe(
         (response: any) => {
           if (!response.data) {

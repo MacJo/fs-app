@@ -16,8 +16,7 @@ describe('SettingsComponent', () => {
       imports:[
         MatSnackBarModule,
         RouterTestingModule.withRoutes(
-          [{path: '', component: HomeComponent}, 
-          {path: 'settings', component: SettingsComponent}]
+          []
         ),
         TranslateModule.forRoot({
         loader: {

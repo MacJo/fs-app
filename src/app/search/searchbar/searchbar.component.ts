@@ -3,7 +3,6 @@ import { StorageService, LOCAL_STORAGE } from 'ngx-webstorage-service';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl } from '@angular/forms';
-import { ElasticService } from '../../core/services/elastic/elastic.service';
 import { Router } from '@angular/router';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
