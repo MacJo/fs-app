@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject, Injectable } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { StorageService, LOCAL_STORAGE } from 'ngx-webstorage-service';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -6,8 +6,8 @@ import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { SearchService } from '../../core/services/search/search.service';
 
@@ -106,7 +106,6 @@ export class SearchbarComponent implements OnInit{
   }
 
   _search() : boolean {
-    
     if(!this.searchbar){
       this.translate.get('PAGES.ALERT.SEARCH_EMPTY').subscribe(text => this.snackBar.open(text, 'X', { duration: 2000,}));
       return false;
