@@ -23,10 +23,7 @@ export class UserSettingsComponent implements OnInit  {
   appmode: string;
 
   lcc: Licence;
-
-  apiKey: string;
   id: string;
-  cloudid: string;
   
   es_url: string;
   es_index: string;
@@ -44,8 +41,8 @@ export class UserSettingsComponent implements OnInit  {
 
 
   constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private translate: TranslateService, 
-    private electron: ElectronService, private snackBar: MatSnackBar, private os: OsService, private settings: SettingsService) {
-    }
+    private electron: ElectronService, private snackBar: MatSnackBar, private os: OsService, 
+    private settings: SettingsService) {}
 
   ngOnInit(): void {
     const lcc: Licence = this.storage.get('lcc')
@@ -74,7 +71,6 @@ export class UserSettingsComponent implements OnInit  {
   }
 
   getFileAuth($event): void {
-    
     const files :FileList = $event.target.files;
     const filepath = files[0].path.toString();
     
@@ -93,9 +89,8 @@ export class UserSettingsComponent implements OnInit  {
               duration: 2000,
             }));
           } else {
-
             this.lcc = {
-              id: this.id = this.convertFromHex(data["a"]),
+              id: this.convertFromHex(data["a"]),
               username: (this.convertFromHex(data["e"]) === 'local') ? this.os.username() : this.convertFromHex(data["a"]),
               apiKey: this.convertFromHex(data["b"]),
               url: this.convertFromHex(data["c"]),
@@ -103,7 +98,6 @@ export class UserSettingsComponent implements OnInit  {
             }
 
             this.storage.set('lcc', this.lcc)
-            
             this.translate.get('PAGES.SETTINGS.SETTINGSSAVED').subscribe(text => this.snackBar.open(text, 'X', {
               duration: 1000,
             }));
