@@ -1,13 +1,13 @@
 <div class="main-container bkg-{{cssStyle}}">
     <div class="main-btn-container bkg-{{cssStyle}}">
-      <div class="main-btn btn-rect-{{cssStyle}}"
+      <div id="btn-search" class="main-btn btn-rect-{{cssStyle}}"
         [routerLink]="['/search-settings']">
         <h1>
           <mat-icon>search</mat-icon>
           {{ 'PAGES.SETTINGS.SEARCH-SETTINGS' | translate }}
         </h1>
       </div>
-      <div class="main-btn btn-rect-{{cssStyle}}"
+      <div id="btn-settings" class="main-btn btn-rect-{{cssStyle}}"
       [routerLink]="['/user-settings']">
         <h1>
           <mat-icon>supervised_user_circle</mat-icon>
@@ -15,7 +15,7 @@
         </h1>
       </div>
   
-      <div class="return-container">
+      <div id="btn-return" class="return-container">
         <button type="button" class="btn-return"
         [routerLink]="['/home']" >
         {{'PAGES.SETTINGS.RETURN' | translate}}

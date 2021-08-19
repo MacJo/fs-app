@@ -1,15 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslateFakeLoader, TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {HttpClientModule} from '@angular/common/http';
 
-import { ElasticService } from './elastic.service';
+import { SearchService } from './search.service';
 
-describe('ElasticService', () => {
-  let service: ElasticService;
+describe('SearchService', () => {
+  let service: SearchService;
 
-  beforeEach(async () => {
+  beforeEach( async() => {
     await TestBed.configureTestingModule({
       imports: [MatSnackBarModule,
+        HttpClientTestingModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -17,14 +20,14 @@ describe('ElasticService', () => {
           }
         })]
     });
-    service = TestBed.inject(ElasticService);
+    service = TestBed.inject(SearchService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  // TEST SEARCHFORPROXY()
+    // TEST SEARCHFORPROXY()
   // // TEST SEARCHBARVALUE
   // // TEST CUSTOM TIMELINE
   // // TEST APPMODE (CLOUD/LOCAL)

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, Menu } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
@@ -10,17 +10,100 @@ let win: BrowserWindow = null;
 const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
 
+  const isMac = process.platform === 'darwin';
+  const appVersion = app.getVersion();
+
+  //  DEFINE MENUS
+  let menu_lang = {}
+  const menu_labels = {
+  "en":{
+    "options":"Options",
+    "cut":"Cut",
+    "copy":"Copy",
+    "paste": "Paste",
+    "selectAll": "Select All",
+    "help":"Help",
+    "learnmore":"Learn more",
+    "settings":"Settings"
+  },
+  "fr":{
+    "options":"Options",
+    "cut":"Couper",
+    "copy":"Copier",
+    "paste": "Coller",
+    "selectAll": "Selectioner tout",
+    "help":"Aide",
+    "learnmore":"En savoir plus",
+    "settings":"Paramètres"
+  },
+  "pt":{
+    "options":"Opções",
+    "cut":"Cortar",
+    "copy":"Copiar",
+    "paste": "Colar",
+    "selectAll": "Selecionar tudo",
+    "help":"Ajuda",
+    "learnmore":"Saber mais",
+    "settings":"Parametros"
+  },
+  "de":{
+    "options":"Optionen",
+    "cut":"Ausschneiden",
+    "copy":"Kopieren",
+    "paste": "Einfügen",
+    "selectAll": "Alles auswählen",
+    "help":"Hilfe",
+    "learnmore":"Mehr erfahren",
+    "settings":"Einstellungen"
+  }
+  }
+  menu_lang = menu_labels["fr"];
+
+  const menu = Menu.buildFromTemplate([{
+    label: menu_lang["options"],
+    submenu: [
+      { type: 'separator' },
+      { role: 'cut', label: menu_lang["cut"] },
+      { role: 'copy', label: menu_lang["copy"] },
+      { role: 'paste', label: menu_lang["paste"] },
+      { role: 'selectAll', label: menu_lang["selectAll"] },
+      { label: menu_lang["settings"], click: ()=> { 
+        win.webContents.send('goto-settings', 'settingsArg');
+      } },
+    ]
+  },
+  {
+    role: 'help',
+    label: menu_lang["help"],
+    submenu: [
+      {
+        label: menu_lang["learnmore"],
+        click: async () => {
+          const { shell } = require('electron')
+          await shell.openExternal('https://help.partiri.cloud')
+        }
+      },
+      {
+        label: 'Version ' + appVersion
+      }
+    ]
+  }
+  ])
+  Menu.setApplicationMenu(menu)
+
 function createWindow(): BrowserWindow {
 
   const electronScreen = screen;
   const size = electronScreen.getPrimaryDisplay().workAreaSize;
-
+  
   // Create the browser window.
   win = new BrowserWindow({
-    x: 0,
-    y: 0,
-    width: size.width /3,
-    height: size.height /2,
+    x: 50,
+    y: 100,
+    width: size.width / 3,
+    height: size.height / 1.2,
+    minWidth: size.width / 3,
+    maxWidth: size.width / 3,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,
@@ -62,6 +145,8 @@ function createWindow(): BrowserWindow {
 
   return win;
 }
+
+function getLanguages(){}
 
 try {
   // This method will be called when Electron has finished

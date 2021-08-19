@@ -1,15 +1,15 @@
-import { Component, OnInit, OnDestroy, Inject, Injectable } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { StorageService, LOCAL_STORAGE } from 'ngx-webstorage-service';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl } from '@angular/forms';
-import { ElasticService } from '../../core/services/elastic/elastic.service';
 import { Router } from '@angular/router';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { SearchService } from '../../core/services/search/search.service';
 
 export interface Department {
   name: string;
@@ -31,7 +31,7 @@ export interface Timeline {
   templateUrl: './searchbar.component.html',
   styleUrls: ['./searchbar.component.scss']
 })
-export class SearchbarComponent implements OnInit {
+export class SearchbarComponent implements OnInit{
 
   hints = [];
   searchbar: string;
@@ -43,9 +43,8 @@ export class SearchbarComponent implements OnInit {
   departmentsCtrl = new FormControl();
   filteredDepartments: Observable<string[]>;
 
-  searchbarEdited: boolean
-
-  customSearchState: boolean = false;
+  searchbarEdited: boolean;
+  customSearchState = false;
 
   optionalTimelineState: boolean;
   optionalTimeline: Timeline;
@@ -65,8 +64,10 @@ export class SearchbarComponent implements OnInit {
     general: []
   };
 
+  theme: string;
+  defThemePath: string
   cssStyle: string;
-  templatePath: string;
+  themePath: string;
 
   //chips module
   visible = true;
@@ -77,14 +78,13 @@ export class SearchbarComponent implements OnInit {
   //chip seperator key
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  constructor(private _snackBar: MatSnackBar, private translate: TranslateService, private elastic: ElasticService,
-    private router: Router, @Inject(LOCAL_STORAGE) private _storage: StorageService){}
+  constructor(private snackBar: MatSnackBar, private translate: TranslateService, private search: SearchService,
+    private router: Router, @Inject(LOCAL_STORAGE) private storage: StorageService){}
 
   ngOnInit(): void {
-    let theme = this._storage.get('theme_ui')
-    let defThemePath = 'assets/themes/classic_theme/';
-
-    this.listdepartments = this._storage.get('available-departments') || ["N/A"];
+    this.listdepartments = this.storage.get('available-departments') || ["N/A"];
+    this.theme = this.storage.get('theme')
+    this.defThemePath = 'assets/themes/classic/';
 
     this.optionalTimeline = {
       start:'',
@@ -93,50 +93,52 @@ export class SearchbarComponent implements OnInit {
       departments: [],
     };
 
-    if(theme === 'classic') {
+    if(this.theme === 'classic') {
       this.cssStyle = 'light';
-      this.templatePath = defThemePath || 'assets/themes/classic_theme/';
+      this.themePath = this.defThemePath || 'assets/themes/classic/';
     }
-    if(theme === 'darkmode') {
+    if(this.theme === 'darkmode') {
       this.cssStyle = 'dark';
-      this.templatePath = defThemePath || 'assets/themes/darkmode_theme/';
+      this.themePath = this.defThemePath || 'assets/themes/darkmode/';
     }
-    else this.templatePath = defThemePath;
-
+    
     this.initFilteredDep();
   }
 
-  _search() : void {
-    if(this.searchbar === this.oldsearchbar && !this.searchTouched) return;
+  _search() : boolean {
+    if(!this.searchbar){
+      this.translate.get('PAGES.ALERT.SEARCH_EMPTY').subscribe(text => this.snackBar.open(text, 'X', { duration: 2000,}));
+      return false;
+    } 
+    
+    if(this.searchbar === this.oldsearchbar && !this.searchTouched) return false;
     else {
       this.oldsearchbar = this.searchbar;
       this.searchTouched = false;
-    }
-    
-    if(!this.searchbar){
-      this.translate.get('PAGES.ALERT.SEARCH_EMPTY').subscribe(text => this._snackBar.open(text, 'X', {
-        duration: 2000,
-      }));
-      return;
+      if(this.customSearchState) this.search.searchForProxy(this.searchbar, this.optionalTimeline);
+      else this.search.searchForProxy(this.searchbar);
+
+      return true;
     }
   }
 
-  changeCustomSearchState() : void {
-    this.customSearchState = !this.customSearchState
+  changeCustomSearchState(): boolean {
+    return this.customSearchState = !this.customSearchState;
   }
 
-  searchArchive($event) : void{
-      this._storage.set('searchArchive', $event.checked)
+  changeArchive($event): boolean{
+      this.storage.set('searchArchive', $event.checked)
       this.searchTouched = true;
+      return $event.checked;
   }
 
-  activateOptionalTimeline($event) : void {
-    this.optionalTimelineState = $event.checked;
+  changeOptionalTimeline($event): boolean {
+    return this.optionalTimelineState = $event.checked;
   }
   
-  dateChange(type, $event) : void {
+  changeDate(type, $event): void {
     if(type === 'start') this.optionalTimeline.start = $event.srcElement.value
-    else this.optionalTimeline.end = $event.srcElement.value
+    if(type === 'end') this.optionalTimeline.end = $event.srcElement.value
     this.searchTouched = true;
   }
 
@@ -147,7 +149,7 @@ export class SearchbarComponent implements OnInit {
 
     this.searchTouched = true;
 
-    if(value == '') this._search();
+    if(value === '') this._search();
 
     const index = this.listdepartments.indexOf(event.value);
     if(index >= 0){
@@ -188,4 +190,7 @@ export class SearchbarComponent implements OnInit {
         map((dep: string | null) => dep ? this._filter(dep) : this.listdepartments.slice()));
   }
 
+  openSettings(){
+    this.router.navigateByUrl('/settings');
+  }
 }

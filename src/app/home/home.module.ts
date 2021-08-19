@@ -31,7 +31,7 @@ import { SettingsComponent } from '../settings/settings.component';
 import { SearchSettingsComponent } from '../settings/search-settings/search-settings.component';
 import { UserSettingsComponent } from '../settings/user-settings/user-settings.component';
 import { SearchbarComponent } from '../search/searchbar/searchbar.component';
-import { SearchResultComponent } from '../search/search-result/search-result.component'
+import { SearchResultComponent } from '../search/search-result/search-result.component';
 
 
 // AoT requires an exported function for factories
@@ -41,31 +41,29 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
 @NgModule({
   declarations: [
-    HomeComponent, 
-    SettingsComponent, 
-    SearchSettingsComponent, 
+    HomeComponent,
+    SettingsComponent,
+    SearchSettingsComponent,
     UserSettingsComponent,
     SearchbarComponent,
     SearchResultComponent
   ],
   imports: [
-    CommonModule, 
-    SharedModule, 
+    CommonModule,
+    SharedModule,
     HomeRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    
-    MatMenuModule, 
-    MatCheckboxModule, 
-    MatSnackBarModule, 
-    MatAutocompleteModule, 
-    MatIconModule, 
-    MatButtonModule, 
-    MatDatepickerModule, 
-    MatNativeDateModule, 
-    MatChipsModule, 
-    MatSlideToggleModule, 
-    
+    MatMenuModule,
+    MatCheckboxModule,
+    MatSnackBarModule,
+    MatAutocompleteModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatChipsModule,
+    MatSlideToggleModule,
     FormsModule, ReactiveFormsModule,
     TranslateModule.forRoot({
     loader: {
