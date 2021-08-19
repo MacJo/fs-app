@@ -3,8 +3,10 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
 
+
 // Initialize remote module
 require('@electron/remote/main').initialize();
+require('update-electron-app')();
 
 let win: BrowserWindow = null;
 const args = process.argv.slice(1),
