@@ -21,7 +21,6 @@ export class SettingsService{
   }
 
   initStorage(reset: boolean = null): boolean {
-    console.log('Init Storage');
 
       if(!this.storage.has('searchTimeline')) {
         const sT: Timeline = {

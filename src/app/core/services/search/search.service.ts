@@ -51,7 +51,6 @@ export class SearchService {
 
       Axios.post(this.srv.url + 'search', body).then(response => {
         if (!response.data) {
-          console.log('SERVER RESPONSE IS EMPTY, PLEASE CORRECT THIS!')
           this.translate.get('PAGES.SERVER_CODES.503').subscribe(text => this.snackBar.open(text, 'X', {
             duration: 2000,
           }));
@@ -72,8 +71,6 @@ export class SearchService {
         this.searchResponse.next(response.data);
 
       }).catch(error => {
-        console.log(error);
-        console.log('AXIOS CATCH REAL ERROR');
         this.translate.get('PAGES.ALERT.ES_CONN_FAIL').subscribe(text => this.snackBar.open(text, 'X', {
           duration: 2000,
         }));
@@ -97,8 +94,6 @@ export class SearchService {
       Axios.post(this.srv.url + 'available-departments', body).then(response => {
         this.storage.set('available-departments', response.data);
       }).catch(error => {
-        console.log(error);
-        console.log('AXIOS CATCH REAL ERROR');
         this.translate.get('PAGES.ALERT.ES_CONN_FAIL').subscribe(text => this.snackBar.open(text, 'X', {
           duration: 2000,
         }));
