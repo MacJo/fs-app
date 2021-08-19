@@ -1,12 +1,9 @@
 import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { StorageService, LOCAL_STORAGE } from 'ngx-webstorage-service';
 import { Subscription } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ElectronService } from '../../core/services';
-import { TranslateService } from '@ngx-translate/core';
 import { Licence } from '../../shared/typings/settings';
-import { OsService } from '../../core/services/os/os.service';
 import { SettingsService } from '../../core/services/settings/settings.service';
+import { FileAuthService } from '../../core/services/auth/file-auth/file-auth.service';
 
 interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
@@ -40,9 +37,8 @@ export class UserSettingsComponent implements OnInit  {
   settingsSubscription: Subscription;
 
 
-  constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private translate: TranslateService, 
-    private electron: ElectronService, private snackBar: MatSnackBar, private os: OsService, 
-    private settings: SettingsService) {}
+  constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private settings: SettingsService,
+  private fileAuth: FileAuthService) {}
 
   ngOnInit(): void {
     const lcc: Licence = this.storage.get('lcc')
@@ -73,46 +69,12 @@ export class UserSettingsComponent implements OnInit  {
   getFileAuth($event): void {
     const files :FileList = $event.target.files;
     const filepath = files[0].path.toString();
-    
-    if (this.electron.fs.existsSync(filepath)) {
-      this.electron.fs.readFile(filepath, 'UTF8', (err, data) => {
-        if (err) {
-          this.translate.get('PAGES.ALERT.AUTH_UPLOAD_ERROR').subscribe(text => this.snackBar.open(text, 'X', {
-            duration: 2000,
-          }));
-        }
-        else if (data) {
-          data = JSON.parse(data)
 
-          if (!data["a"] || !data["b"] || !data["c"] || !data["e"]) {
-            this.translate.get('PAGES.ALERT.AUTH_FILE_ERROR').subscribe(text => this.snackBar.open(text, 'X', {
-              duration: 2000,
-            }));
-          } else {
-            this.lcc = {
-              id: this.convertFromHex(data["a"]),
-              username: (this.convertFromHex(data["e"]) === 'local') ? this.os.username() : this.convertFromHex(data["a"]),
-              apiKey: this.convertFromHex(data["b"]),
-              url: this.convertFromHex(data["c"]),
-              appmode: this.convertFromHex(data["e"])
-            }
-
-            this.storage.set('lcc', this.lcc)
-            this.translate.get('PAGES.SETTINGS.SETTINGSSAVED').subscribe(text => this.snackBar.open(text, 'X', {
-              duration: 1000,
-            }));
-          }
-        }
-      });
-    } else {
-      this.translate.get('PAGES.ALERT.AUTH_FILE_NOT_FOUND').subscribe(text => this.snackBar.open(text, 'X', {
-        duration: 2000,
-      }));
-    }
+    this.fileAuth.authByFile(filepath)
   }
 
-  _change(ligne, value): void {
-    this.storage.set(ligne, value);
+  doLogin(authCred){
+    // implement other auth service
   }
 
   _changeTheme(): void {
@@ -120,12 +82,6 @@ export class UserSettingsComponent implements OnInit  {
     this.setTheme();
   }
 
-  convertFromHex(hex) {
-    let str = '';
-    hex = hex.toString();
-    for (let i = 0; i < hex.length; i += 2)
-      str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-    return str;
-  }
+
 
 }

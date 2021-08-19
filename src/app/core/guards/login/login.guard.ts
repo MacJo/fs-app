@@ -16,5 +16,4 @@ export class LoginGuard implements CanActivate {
     
     return (this.settings.isLogin()) ? true : this.router.parseUrl('/user-settings') 
   }
-  
 }
