@@ -73,11 +73,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   }
 
   async openFileLocalDir(path) {
-    console.log(path);
-
     path = path.replace(/\\/g, '/');
-    console.log('path ' + path);
-
     await this.electron.shell.showItemInFolder(path);
   }
 
