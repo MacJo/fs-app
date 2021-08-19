@@ -15,8 +15,9 @@ export class SettingsService{
     this.initStorage();
    }
 
-  isLogin(): boolean{
-    return true;
+  isLogin(): boolean {
+    const tmp: Licence = this.storage.get('lcc');
+    return (tmp.id && tmp.apiKey) ? true : false;
   }
 
   initStorage(reset: boolean = null): boolean {
@@ -28,7 +29,7 @@ export class SettingsService{
           end: 'now',
           archive: false,
           departments: []
-        } 
+        };
         this.storage.set('searchTimeline', sT);
       }
       
@@ -38,12 +39,11 @@ export class SettingsService{
       }
 
       if(!this.storage.has('srv')) {
-        const srv: serverSettings = { url: ''}
+        const srv: serverSettings = { url: ''};
         this.storage.set('srv', srv);
       }
 
       if(!this.storage.has('first_login')) this.storage.set('first_login', true);
-
       if(!this.storage.has('theme')) this.storage.set('theme', 'classic');
 
       return true;
@@ -53,6 +53,13 @@ export class SettingsService{
     return this.initStorage(true);
   }
 
+  logout(): boolean {
+    this.storage.remove('lcc');
+
+    return (!this.storage.has('lcc')) ? true : false;
+  }
+
+  // deprecated
   private checkStorage(): boolean {
     
     if(this.storage.has('searchTimeline')) return false;
